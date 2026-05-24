@@ -5,7 +5,6 @@ Full-stack 8-week gym tracker: **Quarkus API** (JSON storage), **React Native (E
 ## Quick start
 
 ```powershell
-# From gym-tracker folder
 .\start-app.bat
 ```
 

@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: gym-tracker/backend
+        working-directory: backend
 
     steps:
       - name: Checkout
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: gym-tracker/frontend
+        working-directory: frontend
 
     steps:
       - name: Checkout
@@ -51,7 +51,7 @@ jobs:
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: gym-tracker/frontend/package-lock.json
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: gym-tracker/web
+        working-directory: web
 
     steps:
       - name: Checkout

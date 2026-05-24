@@ -96,7 +96,7 @@ export default function BackupScreen() {
 
       {Platform.OS === "web" ? (
         <Text style={styles.webTip}>
-          On web, open gym-tracker/web/index.html for full file upload UI matching the design mockup.
+          On web, open http://localhost:3000 for the full file upload UI matching the design mockup.
         </Text>
       ) : null}
     </View>
