@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.aditya.gymtracker"
+      "package": "com.aditya.gymtracker",
+      "usesCleartextTraffic": true
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -39,7 +40,7 @@
       ]
     ],
     "extra": {
-      "apiUrl": "http://localhost:8080/api"
+      "apiBaseUrl": "http://localhost:8080"
     }
   }
 }

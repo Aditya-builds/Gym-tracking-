@@ -8,7 +8,9 @@ Full-stack 8-week gym tracker: **Quarkus API** (JSON storage), **React Native (E
 .\start-app.bat
 ```
 
-Or: `.\scripts\start-app.ps1` — starts API (8080), web (3000), and Expo (8082).
+Or: `.\start-app.ps1` / `.\scripts\start-app.ps1` — starts API (8080), web (3000), and Expo (8082).
+
+**API only:** double-click `run-backend.bat` or `backend\run-dev.bat`.
 
 | Service | URL |
 |---------|-----|

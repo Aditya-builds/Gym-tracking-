@@ -209,7 +209,24 @@ public class JsonDataStore {
     }
 
     private Path resolvePath() {
-        return Path.of(dataFilePath).toAbsolutePath().normalize();
+        Path configured = Path.of(dataFilePath);
+        if (configured.isAbsolute()) {
+            return configured.normalize();
+        }
+        Path cwd = Path.of("").toAbsolutePath().normalize();
+        Path inCwd = cwd.resolve(configured).normalize();
+        Path inBackend = cwd.resolve("backend").resolve(configured).normalize();
+
+        if (Files.exists(inCwd)) {
+            return inCwd;
+        }
+        if (Files.exists(inBackend)) {
+            return inBackend;
+        }
+        if (Files.exists(cwd.resolve("backend").resolve("pom.xml"))) {
+            return inBackend;
+        }
+        return inCwd;
     }
 
     private void copySeed(Path target) throws IOException {
