@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "web-ui": "npx --yes serve ../web -p 3000",
     "build": "eas build --platform android",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
