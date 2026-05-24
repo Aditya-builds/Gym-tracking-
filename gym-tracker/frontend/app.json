@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Gym Tracker",
+    "slug": "gym-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTabletMode": true,
+      "bundleIdentifier": "com.aditya.gymtracker"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.aditya.gymtracker"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Gym Tracker to access your photos.",
+          "cameraPermission": "Allow Gym Tracker to access your camera."
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": "http://localhost:8080/api"
+    }
+  }
+}

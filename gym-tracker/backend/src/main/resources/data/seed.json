@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Aditya",
+      "createdAt": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "exerciseDefinitions": [
+    { "id": 1, "exerciseCode": "pull_up", "exerciseName": "Pull-up", "muscleGroup": "Back", "movementType": "Compound", "isCompound": true },
+    { "id": 2, "exerciseCode": "lat_pulldown", "exerciseName": "Lat Pulldown", "muscleGroup": "Back", "movementType": "Compound", "isCompound": true },
+    { "id": 3, "exerciseCode": "chest_supported_row", "exerciseName": "Chest Supported Row", "muscleGroup": "Back", "movementType": "Compound", "isCompound": true },
+    { "id": 4, "exerciseCode": "back_squat", "exerciseName": "Back Squat", "muscleGroup": "Legs", "movementType": "Compound", "isCompound": true },
+    { "id": 5, "exerciseCode": "romanian_deadlift", "exerciseName": "Romanian Deadlift", "muscleGroup": "Hamstrings", "movementType": "Compound", "isCompound": true },
+    { "id": 6, "exerciseCode": "leg_press", "exerciseName": "Leg Press", "muscleGroup": "Legs", "movementType": "Compound", "isCompound": true },
+    { "id": 7, "exerciseCode": "bulgarian_split_squat", "exerciseName": "Bulgarian Split Squat", "muscleGroup": "Legs", "movementType": "Compound", "isCompound": true },
+    { "id": 8, "exerciseCode": "hip_thrust_barbell", "exerciseName": "Barbell Hip Thrust", "muscleGroup": "Glutes", "movementType": "Compound", "isCompound": true },
+    { "id": 9, "exerciseCode": "incline_db_press", "exerciseName": "Incline Dumbbell Press", "muscleGroup": "Chest", "movementType": "Compound", "isCompound": true },
+    { "id": 10, "exerciseCode": "overhead_press", "exerciseName": "Overhead Press", "muscleGroup": "Shoulders", "movementType": "Compound", "isCompound": true }
+  ],
+  "workoutSessions": [],
+  "exerciseEntries": [],
+  "setEntries": [],
+  "bodyMeasurements": [],
+  "personalRecords": [],
+  "keyLifts": [],
+  "weeklySummaries": []
+}

@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Expo / React Native
+.expo/
+.expo-shared/
+web-build/
+dist/
+
+# Java / Maven
+**/target/
+*.class
+*.jar
+!**/src/main/**/*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.p12
+*.key
+
+# Logs
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Local runtime data (optional — seed is in src/main/resources)
+backend/data/gym-data.json.tmp

@@ -1,0 +1,2243 @@
+{
+  "users" : [ {
+    "id" : 1,
+    "name" : "Aditya",
+    "createdAt" : "2026-01-01T00:00:00Z"
+  } ],
+  "exerciseDefinitions" : [ {
+    "id" : 1,
+    "exerciseCode" : "pull_up",
+    "exerciseName" : "Pull-up",
+    "muscleGroup" : "Back",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 2,
+    "exerciseCode" : "lat_pulldown",
+    "exerciseName" : "Lat Pulldown",
+    "muscleGroup" : "Back",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 3,
+    "exerciseCode" : "chest_supported_row",
+    "exerciseName" : "Chest Supported Row",
+    "muscleGroup" : "Back",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 4,
+    "exerciseCode" : "back_squat",
+    "exerciseName" : "Back Squat",
+    "muscleGroup" : "Legs",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 5,
+    "exerciseCode" : "romanian_deadlift",
+    "exerciseName" : "Romanian Deadlift",
+    "muscleGroup" : "Hamstrings",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 6,
+    "exerciseCode" : "leg_press",
+    "exerciseName" : "Leg Press",
+    "muscleGroup" : "Legs",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 7,
+    "exerciseCode" : "bulgarian_split_squat",
+    "exerciseName" : "Bulgarian Split Squat",
+    "muscleGroup" : "Legs",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 8,
+    "exerciseCode" : "hip_thrust_barbell",
+    "exerciseName" : "Barbell Hip Thrust",
+    "muscleGroup" : "Glutes",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 9,
+    "exerciseCode" : "incline_db_press",
+    "exerciseName" : "Incline Dumbbell Press",
+    "muscleGroup" : "Chest",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 10,
+    "exerciseCode" : "overhead_press",
+    "exerciseName" : "Overhead Press",
+    "muscleGroup" : "Shoulders",
+    "movementType" : "Compound",
+    "isCompound" : true
+  }, {
+    "id" : 11,
+    "exerciseCode" : "pull_ups_assisted_pull_ups",
+    "exerciseName" : "Pull-Ups / Assisted Pull-Ups",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 12,
+    "exerciseCode" : "lat_pulldown_medium_wide_grip",
+    "exerciseName" : "Lat Pulldown (Medium-Wide Grip)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 13,
+    "exerciseCode" : "chest_supported_row_db_or_machine",
+    "exerciseName" : "Chest-Supported Row (DB or Machine)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 14,
+    "exerciseCode" : "single_arm_cable_pulldown_important",
+    "exerciseName" : "Single-Arm Cable Pulldown (IMPORTANT)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 15,
+    "exerciseCode" : "face_pull",
+    "exerciseName" : "Face Pull",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 16,
+    "exerciseCode" : "reverse_pec_deck_rear_delt_fly",
+    "exerciseName" : "Reverse Pec Deck / Rear Delt Fly",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 17,
+    "exerciseCode" : "ez_bar_curl_or_close_grip_supinated_pulldown",
+    "exerciseName" : "EZ-Bar Curl or Close-Grip Supinated Pulldown",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 18,
+    "exerciseCode" : "incline_db_curl_or_hammer_curl",
+    "exerciseName" : "Incline DB Curl or Hammer Curl",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 19,
+    "exerciseCode" : "hyperextensions",
+    "exerciseName" : "Hyperextensions",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 20,
+    "exerciseCode" : "back_squat_4_6_8",
+    "exerciseName" : "Back Squat (4 × 6–8)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 21,
+    "exerciseCode" : "romanian_deadlift_3_4_8_10",
+    "exerciseName" : "Romanian Deadlift (3–4 × 8–10)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 22,
+    "exerciseCode" : "leg_press_3_10_12",
+    "exerciseName" : "Leg Press (3 × 10–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 23,
+    "exerciseCode" : "bulgarian_split_squat_2_3_8_10_leg",
+    "exerciseName" : "Bulgarian Split Squat (2–3 × 8–10 / leg)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 24,
+    "exerciseCode" : "cable_hip_abduction",
+    "exerciseName" : "Cable Hip Abduction",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 25,
+    "exerciseCode" : "leg_extension_2_3_12_15",
+    "exerciseName" : "Leg Extension (2–3 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 26,
+    "exerciseCode" : "leg_curl_2_3_12_15",
+    "exerciseName" : "Leg Curl (2–3 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 27,
+    "exerciseCode" : "hip_thrust",
+    "exerciseName" : "Hip Thrust",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 28,
+    "exerciseCode" : "standing_calf_raise_3_4_12_15",
+    "exerciseName" : "Standing Calf Raise (3–4 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 29,
+    "exerciseCode" : "seated_calf_raise_or_tibialis_raise_3_15_20",
+    "exerciseName" : "Seated Calf Raise or Tibialis Raise (3 × 15–20)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 30,
+    "exerciseCode" : "incline_barbell_or_db_press_4_6_10",
+    "exerciseName" : "Incline Barbell or DB Press (4 × 6–10)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 31,
+    "exerciseCode" : "flat_db_press_3_4_8_12",
+    "exerciseName" : "Flat DB Press (3–4 × 8–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 32,
+    "exerciseCode" : "chest_fly_machine_or_low_to_high_cable_fly_3_12_15",
+    "exerciseName" : "Chest Fly Machine or Low-to-High Cable Fly (3 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 33,
+    "exerciseCode" : "dips_2_3_8_12_or_cable_high_to_low",
+    "exerciseName" : "Dips (2–3 × 8–12) or cable high to low",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 34,
+    "exerciseCode" : "push_up_finisher_1_2_sets_close_to_failure",
+    "exerciseName" : "Push-Up Finisher (1–2 sets close to failure)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 35,
+    "exerciseCode" : "rope_pushdown_3_4_10_15",
+    "exerciseName" : "Rope Pushdown (3–4 × 10–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 36,
+    "exerciseCode" : "overhead_db_or_cable_extension_3_10_12",
+    "exerciseName" : "Overhead DB or Cable Extension (3 × 10–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 37,
+    "exerciseCode" : "bench_dips_2_12_15",
+    "exerciseName" : "Bench Dips (2 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 38,
+    "exerciseCode" : "farmer_s_walk_or_suitcase_carry_3_30_40_s",
+    "exerciseName" : "Farmer’s Walk or Suitcase Carry (3 × 30–40 s)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 39,
+    "exerciseCode" : "cable_crunch_3_8_12",
+    "exerciseName" : "Cable Crunch (3 × 8–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 40,
+    "exerciseCode" : "ab_wheel_rollout_kneeling_3_6_12",
+    "exerciseName" : "Ab Wheel Rollout – Kneeling (3 × 6–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 41,
+    "exerciseCode" : "pallof_press_3_10_12_side",
+    "exerciseName" : "Pallof Press (3 × 10–12 / side)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 42,
+    "exerciseCode" : "hanging_knee_or_leg_raise_3_10_12",
+    "exerciseName" : "Hanging Knee or Leg Raise (3 × 10–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 43,
+    "exerciseCode" : "neck_work_2_movements_2_sets",
+    "exerciseName" : "Neck Work – 2 movements × 2 sets",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 44,
+    "exerciseCode" : "overhead_press_bb_or_db_3_6_10",
+    "exerciseName" : "Overhead Press (BB or DB) (3 × 6–10)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 45,
+    "exerciseCode" : "lateral_raise_3_4_12_15",
+    "exerciseName" : "Lateral Raise (3–4 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 46,
+    "exerciseCode" : "reverse_fly_or_face_pull_2_3_12_15",
+    "exerciseName" : "Reverse Fly or Face Pull (2–3 × 12–15)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 47,
+    "exerciseCode" : "machine_or_db_shoulder_press_2_10_12",
+    "exerciseName" : "Machine or DB Shoulder Press (2 × 10–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 48,
+    "exerciseCode" : "close_grip_pulldown_palms_up_3_8_12",
+    "exerciseName" : "Close-Grip Pulldown (Palms Up) (3 × 8–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 49,
+    "exerciseCode" : "db_preacher_curl_or_hammer_curl_3_10_12",
+    "exerciseName" : "DB Preacher Curl or Hammer Curl (3 × 10–12)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 50,
+    "exerciseCode" : "21s_or_high_rep_pump_set_2_15_20",
+    "exerciseName" : "21s or High-Rep Pump Set (2 × 15–20)",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 51,
+    "exerciseCode" : "cat_cow_world_s_greatest_stretch",
+    "exerciseName" : "Cat–Cow + World’s Greatest Stretch",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 52,
+    "exerciseCode" : "band_pull_apart",
+    "exerciseName" : "Band Pull-Apart",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 53,
+    "exerciseCode" : "dead_hang",
+    "exerciseName" : "Dead Hang",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 54,
+    "exerciseCode" : "straight_arm_pulldown",
+    "exerciseName" : "Straight Arm Pulldown",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 55,
+    "exerciseCode" : "no_ego_lifting",
+    "exerciseName" : "No ego lifting",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 56,
+    "exerciseCode" : "control_every_rep",
+    "exerciseName" : "Control every rep",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 57,
+    "exerciseCode" : "full_stretch_at_top_squeeze_at_bottom",
+    "exerciseName" : "Full stretch at top, squeeze at bottom",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 58,
+    "exerciseCode" : "if_you_feel_biceps_more_than_back",
+    "exerciseName" : "If you feel biceps more than back",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 59,
+    "exerciseCode" : "elbows_drive_the_movement",
+    "exerciseName" : "“Elbows drive the movement”",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 60,
+    "exerciseCode" : "chest_up_lats_engaged",
+    "exerciseName" : "“Chest up = lats engaged”",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 61,
+    "exerciseCode" : "pull_with_back_not_hands",
+    "exerciseName" : "“Pull with back, not hands”",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 62,
+    "exerciseCode" : "add_reps_or_small_weight_every_week",
+    "exerciseName" : "Add reps or small weight every week",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 63,
+    "exerciseCode" : "reduce_weight_by_40_50_or_cut_sets_in_half",
+    "exerciseName" : "Reduce weight by 40–50% OR cut sets in half",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 64,
+    "exerciseCode" : "90_90_hip_stretch",
+    "exerciseName" : "90/90 Hip Stretch",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 65,
+    "exerciseCode" : "hip_flexor_to_hamstring_flow",
+    "exerciseName" : "Hip Flexor to Hamstring Flow",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 66,
+    "exerciseCode" : "cossack_squats",
+    "exerciseName" : "Cossack Squats",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 67,
+    "exerciseCode" : "single_leg_glute_bridges",
+    "exerciseName" : "Single-Leg Glute Bridges",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 68,
+    "exerciseCode" : "standing_hip_cars",
+    "exerciseName" : "Standing Hip CARs",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 69,
+    "exerciseCode" : "incline_push_ups",
+    "exerciseName" : "Incline Push-Ups",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 70,
+    "exerciseCode" : "banded_external_rotations",
+    "exerciseName" : "Banded External Rotations",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 71,
+    "exerciseCode" : "light_air_punches",
+    "exerciseName" : "Light Air Punches",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 72,
+    "exerciseCode" : "dead_bug",
+    "exerciseName" : "Dead Bug",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 73,
+    "exerciseCode" : "cat_cow",
+    "exerciseName" : "Cat-Cow",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 74,
+    "exerciseCode" : "incline_treadmill_walk",
+    "exerciseName" : "Incline Treadmill Walk",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 75,
+    "exerciseCode" : "very_light_lateral_raises",
+    "exerciseName" : "Very Light Lateral Raises",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 76,
+    "exerciseCode" : "bench_press",
+    "exerciseName" : "Bench Press",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  }, {
+    "id" : 77,
+    "exerciseCode" : "row",
+    "exerciseName" : "Row",
+    "muscleGroup" : null,
+    "movementType" : null,
+    "isCompound" : false
+  } ],
+  "workoutSessions" : [ {
+    "id" : 1,
+    "userId" : 1,
+    "workoutDate" : "2026-04-27",
+    "weekNumber" : 1,
+    "trainingDay" : "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)",
+    "durationMinutes" : 55,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : "Felt strong",
+    "createdAt" : "2026-04-27T17:30:00Z"
+  }, {
+    "id" : 2,
+    "userId" : 1,
+    "workoutDate" : "2026-04-29",
+    "weekNumber" : 1,
+    "trainingDay" : "Day 2 – LEGS",
+    "durationMinutes" : 60,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-04-29T17:30:00Z"
+  }, {
+    "id" : 3,
+    "userId" : 1,
+    "workoutDate" : "2026-05-01",
+    "weekNumber" : 1,
+    "trainingDay" : "Day 3 – CHEST & TRICEPS",
+    "durationMinutes" : 65,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-01T17:30:00Z"
+  }, {
+    "id" : 4,
+    "userId" : 1,
+    "workoutDate" : "2026-05-04",
+    "weekNumber" : 2,
+    "trainingDay" : "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)",
+    "durationMinutes" : 55,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : "Felt strong",
+    "createdAt" : "2026-05-04T17:30:00Z"
+  }, {
+    "id" : 5,
+    "userId" : 1,
+    "workoutDate" : "2026-05-06",
+    "weekNumber" : 2,
+    "trainingDay" : "Day 2 – LEGS",
+    "durationMinutes" : 60,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-06T17:30:00Z"
+  }, {
+    "id" : 6,
+    "userId" : 1,
+    "workoutDate" : "2026-05-08",
+    "weekNumber" : 2,
+    "trainingDay" : "Day 3 – CHEST & TRICEPS",
+    "durationMinutes" : 65,
+    "energyLevel" : 3,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-08T17:30:00Z"
+  }, {
+    "id" : 7,
+    "userId" : 1,
+    "workoutDate" : "2026-05-11",
+    "weekNumber" : 3,
+    "trainingDay" : "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)",
+    "durationMinutes" : 55,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : "Felt strong",
+    "createdAt" : "2026-05-11T17:30:00Z"
+  }, {
+    "id" : 8,
+    "userId" : 1,
+    "workoutDate" : "2026-05-13",
+    "weekNumber" : 3,
+    "trainingDay" : "Day 2 – LEGS",
+    "durationMinutes" : 60,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-13T17:30:00Z"
+  }, {
+    "id" : 9,
+    "userId" : 1,
+    "workoutDate" : "2026-05-15",
+    "weekNumber" : 3,
+    "trainingDay" : "Day 3 – CHEST & TRICEPS",
+    "durationMinutes" : 65,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-15T17:30:00Z"
+  }, {
+    "id" : 10,
+    "userId" : 1,
+    "workoutDate" : "2026-05-18",
+    "weekNumber" : 4,
+    "trainingDay" : "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)",
+    "durationMinutes" : 55,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : "Felt strong",
+    "createdAt" : "2026-05-18T17:30:00Z"
+  }, {
+    "id" : 11,
+    "userId" : 1,
+    "workoutDate" : "2026-05-20",
+    "weekNumber" : 4,
+    "trainingDay" : "Day 2 – LEGS",
+    "durationMinutes" : 60,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-20T17:30:00Z"
+  }, {
+    "id" : 12,
+    "userId" : 1,
+    "workoutDate" : "2026-05-22",
+    "weekNumber" : 4,
+    "trainingDay" : "Day 3 – CHEST & TRICEPS",
+    "durationMinutes" : 65,
+    "energyLevel" : 4,
+    "completed" : true,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-22T17:30:00Z"
+  }, {
+    "id" : 13,
+    "userId" : 1,
+    "workoutDate" : "2026-05-24",
+    "weekNumber" : 7,
+    "trainingDay" : "Day 2 – LEGS",
+    "durationMinutes" : null,
+    "energyLevel" : null,
+    "completed" : false,
+    "sessionNotes" : null,
+    "createdAt" : "2026-05-24T17:22:23.909675700Z"
+  } ],
+  "exerciseEntries" : [ {
+    "id" : 1,
+    "workoutSessionId" : 1,
+    "exerciseDefinitionId" : 1,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 2,
+    "workoutSessionId" : 1,
+    "exerciseDefinitionId" : 2,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 3,
+    "workoutSessionId" : 2,
+    "exerciseDefinitionId" : 4,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 4,
+    "workoutSessionId" : 2,
+    "exerciseDefinitionId" : 5,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 5,
+    "workoutSessionId" : 3,
+    "exerciseDefinitionId" : 9,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 6,
+    "workoutSessionId" : 3,
+    "exerciseDefinitionId" : 10,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 7,
+    "workoutSessionId" : 4,
+    "exerciseDefinitionId" : 1,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 8,
+    "workoutSessionId" : 4,
+    "exerciseDefinitionId" : 3,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 9,
+    "workoutSessionId" : 5,
+    "exerciseDefinitionId" : 4,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 10,
+    "workoutSessionId" : 5,
+    "exerciseDefinitionId" : 8,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 11,
+    "workoutSessionId" : 6,
+    "exerciseDefinitionId" : 9,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 12,
+    "workoutSessionId" : 6,
+    "exerciseDefinitionId" : 10,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 13,
+    "workoutSessionId" : 7,
+    "exerciseDefinitionId" : 1,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 14,
+    "workoutSessionId" : 7,
+    "exerciseDefinitionId" : 2,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 15,
+    "workoutSessionId" : 8,
+    "exerciseDefinitionId" : 4,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 16,
+    "workoutSessionId" : 8,
+    "exerciseDefinitionId" : 5,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 17,
+    "workoutSessionId" : 9,
+    "exerciseDefinitionId" : 9,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 18,
+    "workoutSessionId" : 9,
+    "exerciseDefinitionId" : 10,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 19,
+    "workoutSessionId" : 10,
+    "exerciseDefinitionId" : 1,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 20,
+    "workoutSessionId" : 10,
+    "exerciseDefinitionId" : 2,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 21,
+    "workoutSessionId" : 11,
+    "exerciseDefinitionId" : 4,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 22,
+    "workoutSessionId" : 11,
+    "exerciseDefinitionId" : 8,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 23,
+    "workoutSessionId" : 12,
+    "exerciseDefinitionId" : 9,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  }, {
+    "id" : 24,
+    "workoutSessionId" : 12,
+    "exerciseDefinitionId" : 10,
+    "orderIndex" : 2,
+    "exerciseNotes" : null
+  }, {
+    "id" : 25,
+    "workoutSessionId" : 13,
+    "exerciseDefinitionId" : 1,
+    "orderIndex" : 1,
+    "exerciseNotes" : null
+  } ],
+  "setEntries" : [ {
+    "id" : 1,
+    "exerciseEntryId" : 1,
+    "setNumber" : 1,
+    "weight" : 0,
+    "reps" : 6,
+    "rir" : 72,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:15:00Z"
+  }, {
+    "id" : 2,
+    "exerciseEntryId" : 1,
+    "setNumber" : 2,
+    "weight" : 0,
+    "reps" : 6,
+    "rir" : 70,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:20:00Z"
+  }, {
+    "id" : 3,
+    "exerciseEntryId" : 1,
+    "setNumber" : 3,
+    "weight" : 0,
+    "reps" : 5,
+    "rir" : 68,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:25:00Z"
+  }, {
+    "id" : 4,
+    "exerciseEntryId" : 2,
+    "setNumber" : 1,
+    "weight" : 55,
+    "reps" : 10,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:15:00Z"
+  }, {
+    "id" : 5,
+    "exerciseEntryId" : 2,
+    "setNumber" : 2,
+    "weight" : 57.5,
+    "reps" : 10,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:20:00Z"
+  }, {
+    "id" : 6,
+    "exerciseEntryId" : 2,
+    "setNumber" : 3,
+    "weight" : 57.5,
+    "reps" : 9,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-04-27T18:25:00Z"
+  }, {
+    "id" : 7,
+    "exerciseEntryId" : 3,
+    "setNumber" : 1,
+    "weight" : 80,
+    "reps" : 8,
+    "rir" : 70,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:15:00Z"
+  }, {
+    "id" : 8,
+    "exerciseEntryId" : 3,
+    "setNumber" : 2,
+    "weight" : 82.5,
+    "reps" : 8,
+    "rir" : 68,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:20:00Z"
+  }, {
+    "id" : 9,
+    "exerciseEntryId" : 3,
+    "setNumber" : 3,
+    "weight" : 82.5,
+    "reps" : 7,
+    "rir" : 65,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:25:00Z"
+  }, {
+    "id" : 10,
+    "exerciseEntryId" : 4,
+    "setNumber" : 1,
+    "weight" : 70,
+    "reps" : 10,
+    "rir" : 60,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:15:00Z"
+  }, {
+    "id" : 11,
+    "exerciseEntryId" : 4,
+    "setNumber" : 2,
+    "weight" : 72.5,
+    "reps" : 10,
+    "rir" : 58,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:20:00Z"
+  }, {
+    "id" : 12,
+    "exerciseEntryId" : 4,
+    "setNumber" : 3,
+    "weight" : 72.5,
+    "reps" : 9,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-04-29T18:25:00Z"
+  }, {
+    "id" : 13,
+    "exerciseEntryId" : 5,
+    "setNumber" : 1,
+    "weight" : 22.5,
+    "reps" : 10,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:15:00Z"
+  }, {
+    "id" : 14,
+    "exerciseEntryId" : 5,
+    "setNumber" : 2,
+    "weight" : 24,
+    "reps" : 10,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:20:00Z"
+  }, {
+    "id" : 15,
+    "exerciseEntryId" : 5,
+    "setNumber" : 3,
+    "weight" : 24,
+    "reps" : 9,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:25:00Z"
+  }, {
+    "id" : 16,
+    "exerciseEntryId" : 6,
+    "setNumber" : 1,
+    "weight" : 40,
+    "reps" : 8,
+    "rir" : 60,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:15:00Z"
+  }, {
+    "id" : 17,
+    "exerciseEntryId" : 6,
+    "setNumber" : 2,
+    "weight" : 42.5,
+    "reps" : 8,
+    "rir" : 58,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:20:00Z"
+  }, {
+    "id" : 18,
+    "exerciseEntryId" : 6,
+    "setNumber" : 3,
+    "weight" : 42.5,
+    "reps" : 7,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-05-01T18:25:00Z"
+  }, {
+    "id" : 19,
+    "exerciseEntryId" : 7,
+    "setNumber" : 1,
+    "weight" : 0,
+    "reps" : 7,
+    "rir" : 68,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:15:00Z"
+  }, {
+    "id" : 20,
+    "exerciseEntryId" : 7,
+    "setNumber" : 2,
+    "weight" : 0,
+    "reps" : 7,
+    "rir" : 66,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:20:00Z"
+  }, {
+    "id" : 21,
+    "exerciseEntryId" : 7,
+    "setNumber" : 3,
+    "weight" : 2.5,
+    "reps" : 6,
+    "rir" : 64,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:25:00Z"
+  }, {
+    "id" : 22,
+    "exerciseEntryId" : 8,
+    "setNumber" : 1,
+    "weight" : 50,
+    "reps" : 10,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:15:00Z"
+  }, {
+    "id" : 23,
+    "exerciseEntryId" : 8,
+    "setNumber" : 2,
+    "weight" : 52.5,
+    "reps" : 10,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:20:00Z"
+  }, {
+    "id" : 24,
+    "exerciseEntryId" : 8,
+    "setNumber" : 3,
+    "weight" : 52.5,
+    "reps" : 9,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-04T18:25:00Z"
+  }, {
+    "id" : 25,
+    "exerciseEntryId" : 9,
+    "setNumber" : 1,
+    "weight" : 85,
+    "reps" : 8,
+    "rir" : 68,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:15:00Z"
+  }, {
+    "id" : 26,
+    "exerciseEntryId" : 9,
+    "setNumber" : 2,
+    "weight" : 87.5,
+    "reps" : 7,
+    "rir" : 65,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:20:00Z"
+  }, {
+    "id" : 27,
+    "exerciseEntryId" : 9,
+    "setNumber" : 3,
+    "weight" : 87.5,
+    "reps" : 7,
+    "rir" : 63,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:25:00Z"
+  }, {
+    "id" : 28,
+    "exerciseEntryId" : 10,
+    "setNumber" : 1,
+    "weight" : 100,
+    "reps" : 10,
+    "rir" : 58,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:15:00Z"
+  }, {
+    "id" : 29,
+    "exerciseEntryId" : 10,
+    "setNumber" : 2,
+    "weight" : 105,
+    "reps" : 10,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:20:00Z"
+  }, {
+    "id" : 30,
+    "exerciseEntryId" : 10,
+    "setNumber" : 3,
+    "weight" : 105,
+    "reps" : 9,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-06T18:25:00Z"
+  }, {
+    "id" : 31,
+    "exerciseEntryId" : 11,
+    "setNumber" : 1,
+    "weight" : 24,
+    "reps" : 10,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:15:00Z"
+  }, {
+    "id" : 32,
+    "exerciseEntryId" : 11,
+    "setNumber" : 2,
+    "weight" : 25,
+    "reps" : 9,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:20:00Z"
+  }, {
+    "id" : 33,
+    "exerciseEntryId" : 11,
+    "setNumber" : 3,
+    "weight" : 25,
+    "reps" : 9,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:25:00Z"
+  }, {
+    "id" : 34,
+    "exerciseEntryId" : 12,
+    "setNumber" : 1,
+    "weight" : 42.5,
+    "reps" : 8,
+    "rir" : 56,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:15:00Z"
+  }, {
+    "id" : 35,
+    "exerciseEntryId" : 12,
+    "setNumber" : 2,
+    "weight" : 45,
+    "reps" : 7,
+    "rir" : 54,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:20:00Z"
+  }, {
+    "id" : 36,
+    "exerciseEntryId" : 12,
+    "setNumber" : 3,
+    "weight" : 45,
+    "reps" : 7,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-08T18:25:00Z"
+  }, {
+    "id" : 37,
+    "exerciseEntryId" : 13,
+    "setNumber" : 1,
+    "weight" : 2.5,
+    "reps" : 7,
+    "rir" : 65,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:15:00Z"
+  }, {
+    "id" : 38,
+    "exerciseEntryId" : 13,
+    "setNumber" : 2,
+    "weight" : 2.5,
+    "reps" : 7,
+    "rir" : 63,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:20:00Z"
+  }, {
+    "id" : 39,
+    "exerciseEntryId" : 13,
+    "setNumber" : 3,
+    "weight" : 5,
+    "reps" : 6,
+    "rir" : 60,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:25:00Z"
+  }, {
+    "id" : 40,
+    "exerciseEntryId" : 14,
+    "setNumber" : 1,
+    "weight" : 60,
+    "reps" : 10,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:15:00Z"
+  }, {
+    "id" : 41,
+    "exerciseEntryId" : 14,
+    "setNumber" : 2,
+    "weight" : 62.5,
+    "reps" : 9,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:20:00Z"
+  }, {
+    "id" : 42,
+    "exerciseEntryId" : 14,
+    "setNumber" : 3,
+    "weight" : 62.5,
+    "reps" : 9,
+    "rir" : 46,
+    "isPr" : false,
+    "createdAt" : "2026-05-11T18:25:00Z"
+  }, {
+    "id" : 43,
+    "exerciseEntryId" : 15,
+    "setNumber" : 1,
+    "weight" : 90,
+    "reps" : 7,
+    "rir" : 63,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:15:00Z"
+  }, {
+    "id" : 44,
+    "exerciseEntryId" : 15,
+    "setNumber" : 2,
+    "weight" : 92.5,
+    "reps" : 6,
+    "rir" : 60,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:20:00Z"
+  }, {
+    "id" : 45,
+    "exerciseEntryId" : 15,
+    "setNumber" : 3,
+    "weight" : 92.5,
+    "reps" : 6,
+    "rir" : 58,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:25:00Z"
+  }, {
+    "id" : 46,
+    "exerciseEntryId" : 16,
+    "setNumber" : 1,
+    "weight" : 75,
+    "reps" : 10,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:15:00Z"
+  }, {
+    "id" : 47,
+    "exerciseEntryId" : 16,
+    "setNumber" : 2,
+    "weight" : 77.5,
+    "reps" : 9,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:20:00Z"
+  }, {
+    "id" : 48,
+    "exerciseEntryId" : 16,
+    "setNumber" : 3,
+    "weight" : 77.5,
+    "reps" : 9,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-13T18:25:00Z"
+  }, {
+    "id" : 49,
+    "exerciseEntryId" : 17,
+    "setNumber" : 1,
+    "weight" : 26,
+    "reps" : 9,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:15:00Z"
+  }, {
+    "id" : 50,
+    "exerciseEntryId" : 17,
+    "setNumber" : 2,
+    "weight" : 27.5,
+    "reps" : 8,
+    "rir" : 46,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:20:00Z"
+  }, {
+    "id" : 51,
+    "exerciseEntryId" : 17,
+    "setNumber" : 3,
+    "weight" : 27.5,
+    "reps" : 8,
+    "rir" : 44,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:25:00Z"
+  }, {
+    "id" : 52,
+    "exerciseEntryId" : 18,
+    "setNumber" : 1,
+    "weight" : 45,
+    "reps" : 7,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:15:00Z"
+  }, {
+    "id" : 53,
+    "exerciseEntryId" : 18,
+    "setNumber" : 2,
+    "weight" : 47.5,
+    "reps" : 6,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:20:00Z"
+  }, {
+    "id" : 54,
+    "exerciseEntryId" : 18,
+    "setNumber" : 3,
+    "weight" : 47.5,
+    "reps" : 6,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-15T18:25:00Z"
+  }, {
+    "id" : 55,
+    "exerciseEntryId" : 19,
+    "setNumber" : 1,
+    "weight" : 5,
+    "reps" : 8,
+    "rir" : 62,
+    "isPr" : false,
+    "createdAt" : "2026-05-18T18:15:00Z"
+  }, {
+    "id" : 56,
+    "exerciseEntryId" : 19,
+    "setNumber" : 2,
+    "weight" : 5,
+    "reps" : 7,
+    "rir" : 60,
+    "isPr" : false,
+    "createdAt" : "2026-05-18T18:20:00Z"
+  }, {
+    "id" : 57,
+    "exerciseEntryId" : 19,
+    "setNumber" : 3,
+    "weight" : 7.5,
+    "reps" : 6,
+    "rir" : 58,
+    "isPr" : true,
+    "createdAt" : "2026-05-18T18:25:00Z"
+  }, {
+    "id" : 58,
+    "exerciseEntryId" : 20,
+    "setNumber" : 1,
+    "weight" : 65,
+    "reps" : 10,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-18T18:15:00Z"
+  }, {
+    "id" : 59,
+    "exerciseEntryId" : 20,
+    "setNumber" : 2,
+    "weight" : 67.5,
+    "reps" : 9,
+    "rir" : 45,
+    "isPr" : false,
+    "createdAt" : "2026-05-18T18:20:00Z"
+  }, {
+    "id" : 60,
+    "exerciseEntryId" : 20,
+    "setNumber" : 3,
+    "weight" : 67.5,
+    "reps" : 9,
+    "rir" : 43,
+    "isPr" : false,
+    "createdAt" : "2026-05-18T18:25:00Z"
+  }, {
+    "id" : 61,
+    "exerciseEntryId" : 21,
+    "setNumber" : 1,
+    "weight" : 95,
+    "reps" : 6,
+    "rir" : 58,
+    "isPr" : false,
+    "createdAt" : "2026-05-20T18:15:00Z"
+  }, {
+    "id" : 62,
+    "exerciseEntryId" : 21,
+    "setNumber" : 2,
+    "weight" : 97.5,
+    "reps" : 6,
+    "rir" : 55,
+    "isPr" : false,
+    "createdAt" : "2026-05-20T18:20:00Z"
+  }, {
+    "id" : 63,
+    "exerciseEntryId" : 21,
+    "setNumber" : 3,
+    "weight" : 100,
+    "reps" : 5,
+    "rir" : 52,
+    "isPr" : true,
+    "createdAt" : "2026-05-20T18:25:00Z"
+  }, {
+    "id" : 64,
+    "exerciseEntryId" : 22,
+    "setNumber" : 1,
+    "weight" : 110,
+    "reps" : 10,
+    "rir" : 52,
+    "isPr" : false,
+    "createdAt" : "2026-05-20T18:15:00Z"
+  }, {
+    "id" : 65,
+    "exerciseEntryId" : 22,
+    "setNumber" : 2,
+    "weight" : 115,
+    "reps" : 9,
+    "rir" : 50,
+    "isPr" : false,
+    "createdAt" : "2026-05-20T18:20:00Z"
+  }, {
+    "id" : 66,
+    "exerciseEntryId" : 22,
+    "setNumber" : 3,
+    "weight" : 115,
+    "reps" : 8,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-20T18:25:00Z"
+  }, {
+    "id" : 67,
+    "exerciseEntryId" : 23,
+    "setNumber" : 1,
+    "weight" : 28,
+    "reps" : 8,
+    "rir" : 44,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:15:00Z"
+  }, {
+    "id" : 68,
+    "exerciseEntryId" : 23,
+    "setNumber" : 2,
+    "weight" : 30,
+    "reps" : 7,
+    "rir" : 42,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:20:00Z"
+  }, {
+    "id" : 69,
+    "exerciseEntryId" : 23,
+    "setNumber" : 3,
+    "weight" : 30,
+    "reps" : 7,
+    "rir" : 40,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:25:00Z"
+  }, {
+    "id" : 70,
+    "exerciseEntryId" : 24,
+    "setNumber" : 1,
+    "weight" : 50,
+    "reps" : 6,
+    "rir" : 48,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:15:00Z"
+  }, {
+    "id" : 71,
+    "exerciseEntryId" : 24,
+    "setNumber" : 2,
+    "weight" : 52.5,
+    "reps" : 5,
+    "rir" : 45,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:20:00Z"
+  }, {
+    "id" : 72,
+    "exerciseEntryId" : 24,
+    "setNumber" : 3,
+    "weight" : 52.5,
+    "reps" : 5,
+    "rir" : 43,
+    "isPr" : false,
+    "createdAt" : "2026-05-22T18:25:00Z"
+  }, {
+    "id" : 73,
+    "exerciseEntryId" : 25,
+    "setNumber" : 1,
+    "weight" : 12,
+    "reps" : 5,
+    "rir" : 4,
+    "isPr" : false,
+    "createdAt" : "2026-05-24T17:22:23.957134Z"
+  } ],
+  "bodyMeasurements" : [ {
+    "id" : 1,
+    "userId" : 1,
+    "measurementDate" : "2026-05-03",
+    "weekNumber" : 1,
+    "bodyWeight" : 78.2,
+    "waistNavel" : 82.5,
+    "waistSmallest" : 81.3,
+    "hips" : 98,
+    "thigh" : 56,
+    "chest" : 102,
+    "shoulders" : 118,
+    "arm" : 34.5,
+    "neck" : null,
+    "photosTaken" : false,
+    "notes" : "Week 1 check-in",
+    "createdAt" : "2026-05-03T08:00:00Z"
+  }, {
+    "id" : 2,
+    "userId" : 1,
+    "measurementDate" : "2026-05-10",
+    "weekNumber" : 2,
+    "bodyWeight" : 77.8,
+    "waistNavel" : 81.8,
+    "waistSmallest" : 80.6,
+    "hips" : 98.2,
+    "thigh" : 56.2,
+    "chest" : 102.5,
+    "shoulders" : 118.5,
+    "arm" : 34.8,
+    "neck" : null,
+    "photosTaken" : true,
+    "notes" : "Week 2 check-in",
+    "createdAt" : "2026-05-10T08:00:00Z"
+  }, {
+    "id" : 3,
+    "userId" : 1,
+    "measurementDate" : "2026-05-17",
+    "weekNumber" : 3,
+    "bodyWeight" : 77.4,
+    "waistNavel" : 81,
+    "waistSmallest" : 79.8,
+    "hips" : 98.5,
+    "thigh" : 56.5,
+    "chest" : 103,
+    "shoulders" : 119,
+    "arm" : 35,
+    "neck" : null,
+    "photosTaken" : false,
+    "notes" : "Week 3 check-in",
+    "createdAt" : "2026-05-17T08:00:00Z"
+  }, {
+    "id" : 4,
+    "userId" : 1,
+    "measurementDate" : "2026-05-24",
+    "weekNumber" : 4,
+    "bodyWeight" : 77,
+    "waistNavel" : 80.2,
+    "waistSmallest" : 79,
+    "hips" : 99,
+    "thigh" : 57,
+    "chest" : 103.5,
+    "shoulders" : 119.5,
+    "arm" : 35.2,
+    "neck" : null,
+    "photosTaken" : true,
+    "notes" : "Best week — sleep was solid.",
+    "createdAt" : "2026-05-24T08:00:00Z"
+  } ],
+  "personalRecords" : [ {
+    "id" : 1,
+    "exerciseDefinitionId" : 1,
+    "setEntryId" : 57,
+    "prType" : "WEIGHT_PR",
+    "previousValue" : 5,
+    "newValue" : 7.5,
+    "createdAt" : "2026-05-18T18:25:00Z"
+  }, {
+    "id" : 2,
+    "exerciseDefinitionId" : 4,
+    "setEntryId" : 63,
+    "prType" : "WEIGHT_PR",
+    "previousValue" : 97.5,
+    "newValue" : 100,
+    "createdAt" : "2026-05-20T18:25:00Z"
+  }, {
+    "id" : 3,
+    "exerciseDefinitionId" : 1,
+    "setEntryId" : 73,
+    "prType" : "VOLUME_PR",
+    "previousValue" : 7.5,
+    "newValue" : 60,
+    "createdAt" : "2026-05-24T17:22:23.962253800Z"
+  } ],
+  "keyLifts" : [ ],
+  "weeklySummaries" : [ ],
+  "workoutPlan" : {
+    "planName" : "Imported 8-Week Plan",
+    "weeks" : 8,
+    "focus" : null,
+    "trainingDays" : [ "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)", "Day 2 – LEGS", "Day 3 – CHEST & TRICEPS", "Day 4 – CORE & CONDITIONING", "Day 5 – SHOULDERS & BICEPS" ],
+    "exercises" : [ ],
+    "daySchedule" : {
+      "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)" : [ "Pull-Ups / Assisted Pull-Ups", "Lat Pulldown (Medium-Wide Grip)", "Chest-Supported Row (DB or Machine)", "Single-Arm Cable Pulldown (IMPORTANT)", "Face Pull", "Reverse Pec Deck / Rear Delt Fly", "EZ-Bar Curl or Close-Grip Supinated Pulldown", "Incline DB Curl or Hammer Curl", "Hyperextensions" ],
+      "Day 2 – LEGS" : [ "Back Squat (4 × 6–8)", "Romanian Deadlift (3–4 × 8–10)", "Leg Press (3 × 10–12)", "Bulgarian Split Squat (2–3 × 8–10 / leg)", "Cable Hip Abduction", "Leg Extension (2–3 × 12–15)", "Leg Curl (2–3 × 12–15)", "Hip Thrust", "Standing Calf Raise (3–4 × 12–15)", "Seated Calf Raise or Tibialis Raise (3 × 15–20)" ],
+      "Day 3 – CHEST & TRICEPS" : [ "Incline Barbell or DB Press (4 × 6–10)", "Flat DB Press (3–4 × 8–12)", "Chest Fly Machine or Low-to-High Cable Fly (3 × 12–15)", "Dips (2–3 × 8–12) or cable high to low", "Push-Up Finisher (1–2 sets close to failure)", "Rope Pushdown (3–4 × 10–15)", "Overhead DB or Cable Extension (3 × 10–12)", "Bench Dips (2 × 12–15)" ],
+      "Day 4 – CORE & CONDITIONING" : [ "Farmer’s Walk or Suitcase Carry (3 × 30–40 s)", "Cable Crunch (3 × 8–12)", "Ab Wheel Rollout – Kneeling (3 × 6–12)", "Pallof Press (3 × 10–12 / side)", "Hanging Knee or Leg Raise (3 × 10–12)", "Neck Work – 2 movements × 2 sets" ],
+      "Day 5 – SHOULDERS & BICEPS" : [ "Overhead Press (BB or DB) (3 × 6–10)", "Lateral Raise (3–4 × 12–15)", "Reverse Fly or Face Pull (2–3 × 12–15)", "Machine or DB Shoulder Press (2 × 10–12)", "Close-Grip Pulldown (Palms Up) (3 × 8–12)", "DB Preacher Curl or Hammer Curl (3 × 10–12)", "21s or High-Rep Pump Set (2 × 15–20)" ]
+    },
+    "days" : [ {
+      "dayNumber" : 1,
+      "title" : "BACK + BICEPS (V-TAPER FOCUSED)",
+      "label" : "Day 1 – BACK + BICEPS (V-TAPER FOCUSED)",
+      "sections" : [ {
+        "name" : "Warm-up / Activation",
+        "exercises" : [ {
+          "name" : "Cat–Cow + World’s Greatest Stretch",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "2 rounds",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Band Pull-Apart",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "20",
+          "prescription" : "2 × 20",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Dead Hang",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "30",
+          "prescription" : "2 × 30 sec",
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "Activation (DO NOT SKIP)",
+        "exercises" : [ {
+          "name" : "Straight Arm Pulldown",
+          "sectionName" : "Activation (DO NOT SKIP)",
+          "sets" : 3,
+          "reps" : "12-15",
+          "prescription" : "light weight, focus on lats",
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "BACK (Main Workout)",
+        "exercises" : [ {
+          "name" : "Pull-Ups / Assisted Pull-Ups",
+          "sectionName" : "BACK (Main Workout)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 6–10",
+        "exercises" : [ {
+          "name" : "Lat Pulldown (Medium-Wide Grip)",
+          "sectionName" : "→ 3 × 6–10",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "Medium-Wide Grip",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 8–12",
+        "exercises" : [ {
+          "name" : "Chest-Supported Row (DB or Machine)",
+          "sectionName" : "→ 3 × 8–12",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "DB or Machine",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 8–12",
+        "exercises" : [ {
+          "name" : "Single-Arm Cable Pulldown (IMPORTANT)",
+          "sectionName" : "→ 3 × 8–12",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12 each side",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "REAR DELTS / POSTURE",
+        "exercises" : [ {
+          "name" : "Face Pull",
+          "sectionName" : "REAR DELTS / POSTURE",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 12–15",
+        "exercises" : [ {
+          "name" : "Reverse Pec Deck / Rear Delt Fly",
+          "sectionName" : "→ 3 × 12–15",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 2 × 12–15",
+        "exercises" : [ ]
+      }, {
+        "name" : "BICEPS",
+        "exercises" : [ {
+          "name" : "EZ-Bar Curl or Close-Grip Supinated Pulldown",
+          "sectionName" : "BICEPS",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 8–12",
+        "exercises" : [ {
+          "name" : "Incline DB Curl or Hammer Curl",
+          "sectionName" : "→ 3 × 8–12",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "→ 3 × 10–12",
+        "exercises" : [ ]
+      }, {
+        "name" : "Optional",
+        "exercises" : [ {
+          "name" : "Hyperextensions",
+          "sectionName" : "Optional",
+          "sets" : 2,
+          "reps" : "15",
+          "prescription" : "2 × 15",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "RULES (IMPORTANT)",
+        "exercises" : [ {
+          "name" : "No ego lifting",
+          "sectionName" : "RULES (IMPORTANT)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Control every rep",
+          "sectionName" : "RULES (IMPORTANT)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "2 sec down, 3 sec up",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Full stretch at top, squeeze at bottom",
+          "sectionName" : "RULES (IMPORTANT)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "If you feel biceps more than back",
+          "sectionName" : "RULES (IMPORTANT)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "reduce weight",
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "FOCUS CUES",
+        "exercises" : [ {
+          "name" : "“Elbows drive the movement”",
+          "sectionName" : "FOCUS CUES",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "“Chest up = lats engaged”",
+          "sectionName" : "FOCUS CUES",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "“Pull with back, not hands”",
+          "sectionName" : "FOCUS CUES",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "Progression (Weeks 1–6)",
+        "exercises" : [ {
+          "name" : "Add reps or small weight every week",
+          "sectionName" : "Progression (Weeks 1–6)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "Deload (Weeks 7–8)",
+        "exercises" : [ {
+          "name" : "Reduce weight by 40–50% OR cut sets in half",
+          "sectionName" : "Deload (Weeks 7–8)",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        } ]
+      } ]
+    }, {
+      "dayNumber" : 2,
+      "title" : "LEGS",
+      "label" : "Day 2 – LEGS",
+      "sections" : [ {
+        "name" : "Mobility / Warm-up",
+        "exercises" : [ {
+          "name" : "90/90 Hip Stretch",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "Dynamic",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Hip Flexor to Hamstring Flow",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Cossack Squats",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Single-Leg Glute Bridges",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "12",
+          "prescription" : "3 × 12",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Standing Hip CARs",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Back Squat (4 × 6–8)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 4,
+          "reps" : "6-8",
+          "prescription" : "4 × 6–8",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Romanian Deadlift (3–4 × 8–10)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 4,
+          "reps" : "8-10",
+          "prescription" : "3–4 × 8–10",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Leg Press (3 × 10–12)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Bulgarian Split Squat (2–3 × 8–10 / leg)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "8-10",
+          "prescription" : "2–3 × 8–10 / leg",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Cable Hip Abduction",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Leg Extension (2–3 × 12–15)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "12-15",
+          "prescription" : "2–3 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Leg Curl (2–3 × 12–15)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "12-15",
+          "prescription" : "2–3 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Hip Thrust",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Standing Calf Raise (3–4 × 12–15)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 4,
+          "reps" : "12-15",
+          "prescription" : "3–4 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Seated Calf Raise or Tibialis Raise (3 × 15–20)",
+          "sectionName" : "Mobility / Warm-up",
+          "sets" : 3,
+          "reps" : "15-20",
+          "prescription" : "3 × 15–20",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      } ]
+    }, {
+      "dayNumber" : 3,
+      "title" : "CHEST & TRICEPS",
+      "label" : "Day 3 – CHEST & TRICEPS",
+      "sections" : [ {
+        "name" : "Warm-up / Activation",
+        "exercises" : [ {
+          "name" : "Incline Push-Ups",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "15",
+          "prescription" : "2 × 15",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Banded External Rotations",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "20",
+          "prescription" : "2 × 20",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Light Air Punches",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "20",
+          "prescription" : "2 × 20 s",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Incline Barbell or DB Press (4 × 6–10)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 4,
+          "reps" : "6-10",
+          "prescription" : "4 × 6–10",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Flat DB Press (3–4 × 8–12)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 4,
+          "reps" : "8-12",
+          "prescription" : "3–4 × 8–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Chest Fly Machine or Low-to-High Cable Fly (3 × 12–15)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 3,
+          "reps" : "12-15",
+          "prescription" : "3 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Dips (2–3 × 8–12) or cable high to low",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Push-Up Finisher (1–2 sets close to failure)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "1–2 sets close to failure",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Rope Pushdown (3–4 × 10–15)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 4,
+          "reps" : "10-15",
+          "prescription" : "3–4 × 10–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Overhead DB or Cable Extension (3 × 10–12)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Bench Dips (2 × 12–15)",
+          "sectionName" : "Warm-up / Activation",
+          "sets" : 2,
+          "reps" : "12-15",
+          "prescription" : "2 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      } ]
+    }, {
+      "dayNumber" : 4,
+      "title" : "CORE & CONDITIONING",
+      "label" : "Day 4 – CORE & CONDITIONING",
+      "sections" : [ {
+        "name" : "Warm-up",
+        "exercises" : [ {
+          "name" : "Dead Bug",
+          "sectionName" : "Warm-up",
+          "sets" : 2,
+          "reps" : "10",
+          "prescription" : "2 × 10",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Cat-Cow",
+          "sectionName" : "Warm-up",
+          "sets" : 1,
+          "reps" : "10",
+          "prescription" : "1 × 10",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Farmer’s Walk or Suitcase Carry (3 × 30–40 s)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "30-40",
+          "prescription" : "3 × 30–40 s",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Cable Crunch (3 × 8–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "8-12",
+          "prescription" : "3 × 8–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Ab Wheel Rollout – Kneeling (3 × 6–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "6-12",
+          "prescription" : "3 × 6–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Pallof Press (3 × 10–12 / side)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12 / side",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Hanging Knee or Leg Raise (3 × 10–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Incline Treadmill Walk",
+          "sectionName" : "Warm-up",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : "15–20 min",
+          "notes" : null,
+          "loggable" : false
+        } ]
+      }, {
+        "name" : "Optional",
+        "exercises" : [ {
+          "name" : "Neck Work – 2 movements × 2 sets",
+          "sectionName" : "Optional",
+          "sets" : null,
+          "reps" : null,
+          "prescription" : null,
+          "notes" : null,
+          "loggable" : true
+        } ]
+      } ]
+    }, {
+      "dayNumber" : 5,
+      "title" : "SHOULDERS & BICEPS",
+      "label" : "Day 5 – SHOULDERS & BICEPS",
+      "sections" : [ {
+        "name" : "Warm-up",
+        "exercises" : [ {
+          "name" : "Band Pull-Apart",
+          "sectionName" : "Warm-up",
+          "sets" : 2,
+          "reps" : "15",
+          "prescription" : "2 × 15",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Dead Hang",
+          "sectionName" : "Warm-up",
+          "sets" : 2,
+          "reps" : "20",
+          "prescription" : "2 × 20 s",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Very Light Lateral Raises",
+          "sectionName" : "Warm-up",
+          "sets" : 1,
+          "reps" : "20",
+          "prescription" : "1 × 20",
+          "notes" : null,
+          "loggable" : false
+        }, {
+          "name" : "Overhead Press (BB or DB) (3 × 6–10)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "6-10",
+          "prescription" : "3 × 6–10",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Lateral Raise (3–4 × 12–15)",
+          "sectionName" : "Warm-up",
+          "sets" : 4,
+          "reps" : "12-15",
+          "prescription" : "3–4 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Reverse Fly or Face Pull (2–3 × 12–15)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "12-15",
+          "prescription" : "2–3 × 12–15",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Machine or DB Shoulder Press (2 × 10–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 2,
+          "reps" : "10-12",
+          "prescription" : "2 × 10–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "Close-Grip Pulldown (Palms Up) (3 × 8–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "8-12",
+          "prescription" : "3 × 8–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "DB Preacher Curl or Hammer Curl (3 × 10–12)",
+          "sectionName" : "Warm-up",
+          "sets" : 3,
+          "reps" : "10-12",
+          "prescription" : "3 × 10–12",
+          "notes" : null,
+          "loggable" : true
+        }, {
+          "name" : "21s or High-Rep Pump Set (2 × 15–20)",
+          "sectionName" : "Warm-up",
+          "sets" : 2,
+          "reps" : "15-20",
+          "prescription" : "2 × 15–20",
+          "notes" : null,
+          "loggable" : true
+        } ]
+      }, {
+        "name" : "8.",
+        "exercises" : [ ]
+      } ]
+    } ],
+    "weekPhases" : [ "Use your same 8-week structure", "Weeks 1–6: Progressive overload", "Weeks 7–8: Deload (−40–50% load or half sets, higher reps)" ],
+    "rawText" : "Use your same 8-week structure\n\nWeeks 1–6: Progressive overload\nWeeks 7–8: Deload (−40–50% load or half sets, higher reps)\n\n--------------------------------------------------\n\nDAY 1 – BACK + BICEPS (V-TAPER FOCUSED)\n\nWarm-up / Activation\n- Cat–Cow + World’s Greatest Stretch → 2 rounds\n- Band Pull-Apart → 2 × 20\n- Dead Hang → 2 × 30 sec\n\nActivation (DO NOT SKIP)\n- Straight Arm Pulldown → 2–3 × 12–15 (light weight, focus on lats)\n\n---\n\nBACK (Main Workout)\n1. Pull-Ups / Assisted Pull-Ups\n   → 3 × 6–10\n2. Lat Pulldown (Medium-Wide Grip)\n   → 3 × 8–12\n   Cue: Chest up, slight lean, elbows to ribs\n3. Chest-Supported Row (DB or Machine)\n   → 3 × 8–12\n   Cue: No momentum, squeeze shoulder blades\n4. Single-Arm Cable Pulldown (IMPORTANT)\n   → 3 × 10–12 each side\n   Cue: Elbow to hip, slow and controlled\n\n---\n\nREAR DELTS / POSTURE\n5. Face Pull\n   → 3 × 12–15\n6. Reverse Pec Deck / Rear Delt Fly\n   → 2 × 12–15\n\n---\n\nBICEPS\n7. EZ-Bar Curl or Close-Grip Supinated Pulldown\n   → 3 × 8–12\n8. Incline DB Curl or Hammer Curl\n   → 3 × 10–12\n\n---\n\nOptional\n- Hyperextensions → 2 × 15\n\n---\n\nRULES (IMPORTANT)\n- No ego lifting\n- Control every rep (2 sec down, 3 sec up)\n- Full stretch at top, squeeze at bottom\n- If you feel biceps more than back → reduce weight\n\n---\n\nFOCUS CUES\n- “Elbows drive the movement”\n- “Chest up = lats engaged”\n- “Pull with back, not hands”\n\n---\n\nProgression (Weeks 1–6)\n- Add reps or small weight every week\n\nDeload (Weeks 7–8)\n- Reduce weight by 40–50% OR cut sets in half\n\n--------------------------------------------------\n\nDAY 2 – LEGS\n\nMobility / Warm-up\n- 90/90 Hip Stretch (Dynamic)\n- Hip Flexor to Hamstring Flow\n- Cossack Squats\n- Single-Leg Glute Bridges (3 × 12)\n- Standing Hip CARs\n\nMain Lifts\n1. Back Squat (4 × 6–8)\n2. Romanian Deadlift (3–4 × 8–10)\n3. Leg Press (3 × 10–12)\n4. Bulgarian Split Squat (2–3 × 8–10 / leg)\n5. Cable Hip Abduction\n6. Leg Extension (2–3 × 12–15)\n7. Leg Curl (2–3 × 12–15)\n8. Hip Thrust\n\nCalves / Tibialis\n9. Standing Calf Raise (3–4 × 12–15)\n10. Seated Calf Raise or Tibialis Raise (3 × 15–20)\n\n--------------------------------------------------\n\nDAY 3 – CHEST & TRICEPS\n\nWarm-up / Activation\n- Incline Push-Ups (2 × 15)\n- Banded External Rotations (2 × 20)\n- Light Air Punches (2 × 20 s)\n\nChest\n1. Incline Barbell or DB Press (4 × 6–10)\n2. Flat DB Press (3–4 × 8–12)\n3. Chest Fly Machine or Low-to-High Cable Fly (3 × 12–15)\n4. Dips (2–3 × 8–12) or cable high to low\n5. Push-Up Finisher (1–2 sets close to failure)\n\nTriceps\n6. Rope Pushdown (3–4 × 10–15)\n7. Overhead DB or Cable Extension (3 × 10–12)\n8. Bench Dips (2 × 12–15)\n\n--------------------------------------------------\n\nDAY 4 – CORE & CONDITIONING\n\nWarm-up\n- Dead Bug (2 × 10)\n- Cat-Cow (1 × 10)\n\nCore\n1. Farmer’s Walk or Suitcase Carry (3 × 30–40 s)\n2. Cable Crunch (3 × 8–12)\n3. Ab Wheel Rollout – Kneeling (3 × 6–12)\n4. Pallof Press (3 × 10–12 / side)\n5. Hanging Knee or Leg Raise (3 × 10–12)\n\nConditioning\n- Incline Treadmill Walk (15–20 min)\n\nOptional\n- Neck Work – 2 movements × 2 sets\n\n--------------------------------------------------\n\nDAY 5 – SHOULDERS & BICEPS\n\nWarm-up\n- Band Pull-Apart (2 × 15)\n- Dead Hang (2 × 20 s)\n- Very Light Lateral Raises (1 × 20)\n\nShoulders\n1. Overhead Press (BB or DB) (3 × 6–10)\n2. Lateral Raise (3–4 × 12–15)\n3. Reverse Fly or Face Pull (2–3 × 12–15)\n4. Machine or DB Shoulder Press (2 × 10–12)\n   *Add incline dumbbell press at 30 degrees*\n\nBiceps\n5. Close-Grip Pulldown (Palms Up) (3 × 8–12)\n6. DB Preacher Curl or Hammer Curl (3 × 10–12)\n7. 21s or High-Rep Pump Set (2 × 15–20)\n8."
+  }
+}

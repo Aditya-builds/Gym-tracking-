@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym Progress Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Gym Progress Tracker</h1>
+      <p class="subtitle">
+        Tracker for your 8-week blocks: workouts, measurements, and weekly trends.
+        Data syncs to the Quarkus API (<code id="api-url"></code>) with local backup in this browser.
+      </p>
+      <div class="badges">
+        <span class="badge">Focus: V-taper, glutes &amp; thighs, slimmer waist</span>
+        <span class="badge">Tip: Update after every workout + once per week for measurements</span>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button type="button" class="tab active" data-tab="dashboard">Dashboard</button>
+      <button type="button" class="tab" data-tab="workouts">Workouts</button>
+      <button type="button" class="tab" data-tab="analytics">Analytics</button>
+      <button type="button" class="tab" data-tab="measurements">Measurements</button>
+      <button type="button" class="tab" data-tab="summary">Weekly Summary</button>
+      <button type="button" class="tab" data-tab="backup">Backup</button>
+    </nav>
+
+    <main>
+      <!-- DASHBOARD -->
+      <section id="panel-dashboard" class="panel active">
+        <div class="card">
+          <h2>Dashboard</h2>
+          <p class="hint">Block overview — completion, body metrics, and PRs.</p>
+          <div id="dashboard-overview" class="stats-row"></div>
+          <div id="dashboard-prs" class="log-list"></div>
+        </div>
+      </section>
+
+      <!-- WORKOUTS -->
+      <section id="panel-workouts" class="panel">
+        <div class="card">
+          <h2>Your Workout Plan</h2>
+          <p class="hint">Paste your full plan (DAY 1 – BACK, DAY 2 – LEGS, etc.). We parse days and exercises automatically.</p>
+          <label class="field">
+            <span>Plan text</span>
+            <textarea id="plan-text" rows="8" placeholder="Paste DAY 1 – BACK + BICEPS… with numbered exercises and → 3 × 8–12 prescriptions"></textarea>
+          </label>
+          <div class="actions">
+            <button type="button" class="btn primary" id="btn-parse-plan">Parse &amp; save plan</button>
+            <label class="btn secondary file-btn">
+              Or upload .txt / .json
+              <input type="file" id="plan-file" accept=".txt,.json,text/plain,application/json" hidden />
+            </label>
+          </div>
+          <div id="plan-preview" class="plan-preview"></div>
+        </div>
+
+        <div class="card" style="margin-top: 1rem">
+          <h2>Workout Log</h2>
+          <p class="hint">Log only working sets. Pick your day — exercises load from your plan.</p>
+          <p id="exercise-target" class="tip-pill hidden"></p>
+
+          <div class="grid grid-4">
+            <label class="field">
+              <span>Date</span>
+              <input type="date" id="w-date" />
+            </label>
+            <label class="field">
+              <span>Week (1–8)</span>
+              <input type="number" id="w-week" min="1" max="8" value="1" />
+            </label>
+            <label class="field">
+              <span>Day</span>
+              <select id="w-day"></select>
+            </label>
+            <label class="field">
+              <span>Exercise</span>
+              <select id="w-exercise"></select>
+            </label>
+          </div>
+
+          <div class="grid grid-4">
+            <label class="field">
+              <span>Set #</span>
+              <input type="number" id="w-set" min="1" value="1" />
+            </label>
+            <label class="field">
+              <span>Weight</span>
+              <div class="input-unit">
+                <input type="number" id="w-weight" step="0.5" placeholder="60" />
+                <span>kg</span>
+              </div>
+            </label>
+            <label class="field">
+              <span>Reps</span>
+              <input type="number" id="w-reps" min="1" placeholder="8" />
+            </label>
+            <label class="field">
+              <span>RIR</span>
+              <input type="number" id="w-rir" min="0" max="5" placeholder="1–2 recommended" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Notes</span>
+            <textarea id="w-notes" rows="3" placeholder="e.g. Felt strong, focus on depth."></textarea>
+          </label>
+
+          <div class="actions">
+            <button type="button" class="btn primary" id="btn-save-set">Save set</button>
+          </div>
+
+          <p class="tip-pill">Suggestion: Log only top 2–3 working sets per exercise to keep data clean.</p>
+
+          <div id="workout-log-list" class="log-list"></div>
+
+          <p class="danger-zone">
+            <button type="button" class="text-link-danger" id="btn-clear-workouts">
+              Clear all workouts
+            </button>
+          </p>
+        </div>
+      </section>
+
+      <!-- MEASUREMENTS -->
+      <section id="panel-measurements" class="panel">
+        <div class="card">
+          <h2>Body Check</h2>
+          <p class="hint">Measure once per week — morning, fasted, same conditions.</p>
+
+          <div class="grid grid-4">
+            <label class="field">
+              <span>Date</span>
+              <input type="date" id="m-date" />
+            </label>
+            <label class="field">
+              <span>Week (1–8)</span>
+              <input type="number" id="m-week" min="1" max="8" value="1" />
+            </label>
+            <label class="field">
+              <span>Weight (kg)</span>
+              <input type="number" id="m-weight" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Waist (navel)</span>
+              <input type="number" id="m-waist-navel" step="0.1" />
+            </label>
+          </div>
+
+          <div class="grid grid-4">
+            <label class="field">
+              <span>Waist (smallest)</span>
+              <input type="number" id="m-waist-small" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Hips / Glutes</span>
+              <input type="number" id="m-hips" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Thigh</span>
+              <input type="number" id="m-thigh" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Chest</span>
+              <input type="number" id="m-chest" step="0.1" />
+            </label>
+          </div>
+
+          <div class="grid grid-3">
+            <label class="field">
+              <span>Shoulders</span>
+              <input type="number" id="m-shoulders" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Arm (flexed)</span>
+              <input type="number" id="m-arm" step="0.1" />
+            </label>
+            <label class="field">
+              <span>Photos this week?</span>
+              <select id="m-photos">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Notes</span>
+            <textarea id="m-notes" rows="2" placeholder="Sleep, diet adherence, stress…"></textarea>
+          </label>
+
+          <button type="button" class="btn primary" id="btn-save-measurement">Save measurement</button>
+          <div id="measurement-list" class="log-list"></div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section id="panel-analytics" class="panel">
+        <div class="card">
+          <h2>Analytics</h2>
+          <p class="hint">Volume trends and set history per exercise.</p>
+          <label class="field">
+            <span>Exercise</span>
+            <select id="analytics-exercise"></select>
+          </label>
+          <div id="analytics-volume" class="summary-grid"></div>
+          <div id="analytics-sets" class="log-list"></div>
+        </div>
+      </section>
+
+      <!-- SUMMARY -->
+      <section id="panel-summary" class="panel">
+        <div class="card">
+          <h2>Weekly Summary</h2>
+          <p class="hint">End-of-week review — training + nutrition direction.</p>
+          <div id="summary-grid" class="summary-grid"></div>
+          <div id="dashboard-stats" class="stats-row"></div>
+        </div>
+      </section>
+
+      <!-- BACKUP -->
+      <section id="panel-backup" class="panel">
+        <div class="card">
+          <h2>Backup &amp; Restore</h2>
+          <p class="hint">Export or import your full JSON database. Use this before reinstalling or switching devices.</p>
+          <div class="actions">
+            <button type="button" class="btn primary" id="btn-export">Download backup JSON</button>
+            <label class="btn secondary file-btn">
+              Import backup JSON
+              <input type="file" id="backup-file" accept=".json,application/json" hidden />
+            </label>
+            <button type="button" class="btn secondary" id="btn-sync-api">Sync from API</button>
+          </div>
+          <pre id="backup-status" class="status"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="plan-parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
