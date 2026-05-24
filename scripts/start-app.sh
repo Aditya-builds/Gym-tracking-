@@ -48,7 +48,7 @@ echo ""
 
 if ! port_in_use "$API_PORT"; then
   echo "[API] Starting Quarkus on http://localhost:$API_PORT ..."
-  (cd "$BACKEND" && mvn quarkus:dev -Dquarkus.enforceBuildGoal=false) &
+  (cd "$BACKEND" && mvn quarkus:dev) &
   API_PID=$!
 else
   echo "[API] Port $API_PORT already in use."

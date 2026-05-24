@@ -99,6 +99,8 @@
                 <extensions>true</extensions>
                 <executions>
                     <execution>
+                        <id>package-build</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>

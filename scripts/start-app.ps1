@@ -64,7 +64,7 @@ if (Test-PortListening $ApiPort) {
     Write-Host "[API] Port $ApiPort already in use - assuming backend is running." -ForegroundColor Yellow
 } else {
     Write-Host "[API] Starting Quarkus on http://localhost:$ApiPort ..."
-    Start-ServiceWindow "Gym Tracker API" $BackendDir "mvn quarkus:dev `"-Dquarkus.enforceBuildGoal=false`""
+    Start-ServiceWindow "Gym Tracker API" $BackendDir "mvn quarkus:dev"
 }
 
 # --- Web UI ---
