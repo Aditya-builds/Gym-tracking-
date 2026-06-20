@@ -36,3 +36,14 @@ Or: `.\start-app.ps1` / `.\scripts\start-app.ps1` — starts API (8080), web (30
 cd backend
 node scripts/seed-dummy-4-weeks.mjs
 ```
+
+## JMH microbenchmarks (PR CI)
+
+On pull requests, CI runs [JMH](https://github.com/openjdk/jmh) benchmarks against ceilings in `backend/benchmarks/baseline.json`.
+
+```bash
+cd backend
+mvn test-compile exec:java@run-jmh -Pbenchmark
+```
+
+Benchmarked methods: `WorkoutPlanTextParser.parse`, `OneRMCalculator.estimate`, `VolumeCalculator.calculate`.

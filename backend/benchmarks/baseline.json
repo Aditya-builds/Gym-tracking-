@@ -1,0 +1,21 @@
+{
+  "description": "Maximum average execution time per benchmark (microseconds/op). CI fails if a PR exceeds these ceilings.",
+  "benchmarks": {
+    "com.aditya.gymtracker.benchmark.CoreMethodsBenchmark.parseFullPlan": {
+      "maxUs": 2000,
+      "description": "Parse a 5-day workout plan with sections and prescriptions"
+    },
+    "com.aditya.gymtracker.benchmark.CoreMethodsBenchmark.parseSmallPlan": {
+      "maxUs": 100,
+      "description": "Parse a minimal single-day plan"
+    },
+    "com.aditya.gymtracker.benchmark.CoreMethodsBenchmark.estimateOneRepMax": {
+      "maxUs": 1,
+      "description": "OneRMCalculator.estimate for a single set"
+    },
+    "com.aditya.gymtracker.benchmark.CoreMethodsBenchmark.calculateVolume": {
+      "maxUs": 5,
+      "description": "VolumeCalculator.calculate for a single set"
+    }
+  }
+}
