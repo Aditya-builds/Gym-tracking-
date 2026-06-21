@@ -35,6 +35,20 @@ jobs:
       - name: Verify package build
         run: mvn -B package -DskipTests
 
+      - name: Package backend distribution
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          cd target
+          zip -r gym-tracker-quarkus-app.zip quarkus-app/
+
+      - name: Upload backend artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gym-tracker-backend
+          path: backend/target/gym-tracker-quarkus-app.zip
+          retention-days: 90
+
   jmh-benchmarks:
     name: JMH microbenchmarks
     runs-on: ubuntu-latest
