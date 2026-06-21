@@ -36,6 +36,7 @@
           <h2>Dashboard</h2>
           <p class="hint">Block overview — completion, body metrics, and PRs.</p>
           <div id="dashboard-overview" class="stats-row"></div>
+          <div id="dashboard-charts" class="dashboard-charts"></div>
           <div id="dashboard-prs" class="log-list"></div>
         </div>
       </section>
@@ -43,8 +44,34 @@
       <!-- WORKOUTS -->
       <section id="panel-workouts" class="panel">
         <div class="card">
-          <h2>Your Workout Plan</h2>
-          <p class="hint">Paste your full plan (DAY 1 – BACK, DAY 2 – LEGS, etc.). We parse days and exercises automatically.</p>
+          <h2>Build Your Plan</h2>
+          <p class="hint">Step 1: choose training days per week. Step 2: name each day and list exercises only — weight and sets are logged when you train.</p>
+
+          <div class="grid grid-3">
+            <label class="field">
+              <span>Plan name</span>
+              <input type="text" id="builder-plan-name" value="My Workout Plan" />
+            </label>
+            <label class="field">
+              <span>Block weeks</span>
+              <input type="number" id="builder-weeks" min="1" max="12" value="8" />
+            </label>
+            <label class="field">
+              <span>Days per week</span>
+              <input type="number" id="builder-day-count" min="1" max="7" value="3" title="How many days you train each week" />
+            </label>
+          </div>
+
+          <div id="plan-builder-days" class="plan-builder-days"></div>
+
+          <div class="actions">
+            <button type="button" class="btn primary" id="btn-save-built-plan">Save plan to API</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 1rem">
+          <h2>Import plan (optional)</h2>
+          <p class="hint">Or paste a full text plan (DAY 1 – BACK, DAY 2 – LEGS, etc.) to parse automatically.</p>
           <label class="field">
             <span>Plan text</span>
             <textarea id="plan-text" rows="8" placeholder="Paste DAY 1 – BACK + BICEPS… with numbered exercises and → 3 × 8–12 prescriptions"></textarea>
@@ -202,11 +229,18 @@
       <section id="panel-analytics" class="panel">
         <div class="card">
           <h2>Analytics</h2>
-          <p class="hint">Volume trends and set history per exercise.</p>
-          <label class="field">
-            <span>Exercise</span>
-            <select id="analytics-exercise"></select>
-          </label>
+          <p class="hint">Pick a training day, then an exercise, to see your progress graph.</p>
+          <div class="grid grid-2">
+            <label class="field">
+              <span>Training day</span>
+              <select id="analytics-day"></select>
+            </label>
+            <label class="field">
+              <span>Exercise</span>
+              <select id="analytics-exercise"></select>
+            </label>
+          </div>
+          <div id="analytics-chart" class="progress-chart"></div>
           <div id="analytics-volume" class="summary-grid"></div>
           <div id="analytics-sets" class="log-list"></div>
         </div>

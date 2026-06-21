@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -14,22 +14,35 @@ import {
   getWeeklySummary,
   WeeklySummaryWeek,
 } from "../api/dashboardApi";
-import { colors } from "../theme/colors";
+import { getMeasurements } from "../api/measurementApi";
+import Card from "../components/ui/Card";
+import ProgressChart from "../components/ProgressChart";
+import ScreenHeader from "../components/ui/ScreenHeader";
+import {
+  measurementWeightChart,
+  weeklyFieldToChart,
+} from "../utils/dashboardCharts";
+import { theme } from "../theme/colors";
 
 export default function DashboardScreen() {
   const [dashboard, setDashboard] = useState<DashboardOverview | null>(null);
   const [summary, setSummary] = useState<WeeklySummaryWeek[]>([]);
+  const [measurements, setMeasurements] = useState<
+    Array<{ measurementDate: string; bodyWeight?: number }>
+  >([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const loadDashboard = useCallback(async () => {
     try {
-      const [dashboardData, summaryData] = await Promise.all([
+      const [dashboardData, summaryData, measurementData] = await Promise.all([
         getDashboard(),
         getWeeklySummary(),
+        getMeasurements().catch(() => []),
       ]);
       setDashboard(dashboardData);
       setSummary(summaryData);
+      setMeasurements(measurementData ?? []);
     } catch (error) {
       console.error("Dashboard load failed", error);
     } finally {
@@ -47,10 +60,26 @@ export default function DashboardScreen() {
     loadDashboard();
   };
 
+  const weightChart = useMemo(() => {
+    const fromMeasurements = measurementWeightChart(measurements);
+    if (fromMeasurements.length) return fromMeasurements;
+    return weeklyFieldToChart(summary, "bodyWeight");
+  }, [measurements, summary]);
+
+  const volumeChart = useMemo(
+    () => weeklyFieldToChart(summary, "totalVolume"),
+    [summary]
+  );
+
+  const waistChart = useMemo(
+    () => weeklyFieldToChart(summary, "waist"),
+    [summary]
+  );
+
   if (loading) {
     return (
       <View style={styles.loader}>
-        <ActivityIndicator size="large" color={colors.accent} />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -61,11 +90,17 @@ export default function DashboardScreen() {
     <ScrollView
       style={styles.scroll}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={theme.colors.primary}
+        />
       }
     >
-      <Text style={styles.title}>Dashboard</Text>
-      <Text style={styles.hint}>8-week block overview — workouts, body, and PRs.</Text>
+      <ScreenHeader
+        title="Dashboard"
+        subtitle="8-week block overview — workouts, body trends, and PRs."
+      />
 
       <View style={styles.statsRow}>
         <StatCard
@@ -83,19 +118,53 @@ export default function DashboardScreen() {
       <View style={styles.statsRow}>
         <StatCard
           label="Weight"
-          value={dashboard?.latestWeight != null ? `${dashboard.latestWeight} kg` : "—"}
+          value={
+            dashboard?.latestWeight != null
+              ? `${dashboard.latestWeight} kg`
+              : "—"
+          }
         />
         <StatCard
           label="Waist"
-          value={dashboard?.latestWaist != null ? `${dashboard.latestWaist} cm` : "—"}
+          value={
+            dashboard?.latestWaist != null ? `${dashboard.latestWaist} cm` : "—"
+          }
         />
         <StatCard
           label="Hips"
-          value={dashboard?.latestHips != null ? `${dashboard.latestHips} cm` : "—"}
+          value={
+            dashboard?.latestHips != null ? `${dashboard.latestHips} cm` : "—"
+          }
         />
       </View>
 
-      <View style={styles.card}>
+      <Text style={styles.sectionTitle}>Trends</Text>
+      <Card style={styles.chartCard}>
+        <ProgressChart
+          title="Body weight"
+          points={weightChart}
+          unit="kg"
+          emptyMessage="Log measurements to see your weight trend."
+        />
+      </Card>
+      <Card style={styles.chartCard}>
+        <ProgressChart
+          title="Weekly training volume"
+          points={volumeChart}
+          unit="kg"
+          emptyMessage="Log workout sets to see volume over time."
+        />
+      </Card>
+      <Card style={styles.chartCard}>
+        <ProgressChart
+          title="Waist"
+          points={waistChart}
+          unit="cm"
+          emptyMessage="Log waist measurements to see this trend."
+        />
+      </Card>
+
+      <Card style={styles.prCard}>
         <Text style={styles.cardTitle}>Recent PRs</Text>
         {prs.length ? (
           prs.map((pr, index) => (
@@ -104,9 +173,11 @@ export default function DashboardScreen() {
             </Text>
           ))
         ) : (
-          <Text style={styles.empty}>No PRs logged yet — hit a new best on the Log tab.</Text>
+          <Text style={styles.empty}>
+            No PRs logged yet — hit a new best on the Workout tab.
+          </Text>
         )}
-      </View>
+      </Card>
 
       <Text style={styles.sectionTitle}>Weekly snapshot</Text>
       {summary.length ? (
@@ -114,13 +185,15 @@ export default function DashboardScreen() {
           <View key={week.weekNumber} style={styles.weekCard}>
             <Text style={styles.weekTitle}>Week {week.weekNumber}</Text>
             <Text style={styles.weekLine}>
-              Weight {week.bodyWeight ?? "—"} kg · Waist {week.waist ?? "—"} · Volume{" "}
-              {week.totalVolume ?? "—"}
+              Weight {week.bodyWeight ?? "—"} kg · Waist {week.waist ?? "—"} ·
+              Volume {week.totalVolume ?? "—"}
             </Text>
           </View>
         ))
       ) : (
-        <Text style={styles.empty}>Log measurements and sets to see weekly trends.</Text>
+        <Text style={styles.empty}>
+          Log measurements and sets to see weekly trends.
+        </Text>
       )}
 
       <TouchableOpacity style={styles.refreshBtn} onPress={onRefresh}>
@@ -151,49 +224,67 @@ function StatCard({
 const styles = StyleSheet.create({
   scroll: { flex: 1 },
   loader: { padding: 32, alignItems: "center" },
-  title: { fontSize: 22, fontWeight: "700", color: colors.text, marginBottom: 4 },
-  hint: { color: colors.muted, fontSize: 14, marginBottom: 16 },
-  statsRow: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 10 },
+  statsRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginBottom: 10,
+  },
   stat: {
     flex: 1,
     minWidth: 100,
-    backgroundColor: colors.inputBg,
-    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
     padding: 12,
     borderWidth: 1,
-    borderColor: colors.cardBorder,
+    borderColor: theme.colors.borderSubtle,
   },
-  statValue: { fontSize: 20, fontWeight: "700", color: colors.accent },
-  statLabel: { fontSize: 11, color: colors.muted, marginTop: 4 },
-  statSub: { fontSize: 10, color: colors.muted, marginTop: 2 },
-  card: {
-    backgroundColor: colors.card,
-    borderRadius: 14,
-    padding: 14,
-    marginTop: 8,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: colors.cardBorder,
+  statValue: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: theme.colors.primary,
   },
-  cardTitle: { fontSize: 16, fontWeight: "700", color: colors.text, marginBottom: 8 },
-  prLine: { color: colors.text, fontSize: 14, marginBottom: 4 },
+  statLabel: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 4,
+  },
+  statSub: { fontSize: 10, color: theme.colors.textMuted, marginTop: 2 },
   sectionTitle: {
     fontSize: 16,
     fontWeight: "700",
-    color: colors.text,
+    color: theme.colors.text,
+    marginTop: 8,
     marginBottom: 10,
   },
+  chartCard: { marginBottom: theme.spacing.sm },
+  prCard: { marginTop: theme.spacing.sm, marginBottom: theme.spacing.md },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: theme.colors.text,
+    marginBottom: 8,
+  },
+  prLine: { color: theme.colors.text, fontSize: 14, marginBottom: 4 },
   weekCard: {
-    backgroundColor: colors.inputBg,
-    borderRadius: 12,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
     padding: 12,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: colors.cardBorder,
+    borderColor: theme.colors.borderSubtle,
   },
-  weekTitle: { color: colors.accent, fontWeight: "700", marginBottom: 4 },
-  weekLine: { color: colors.text, fontSize: 13 },
-  empty: { color: colors.muted, fontSize: 14, fontStyle: "italic" },
+  weekTitle: {
+    color: theme.colors.primary,
+    fontWeight: "700",
+    marginBottom: 4,
+  },
+  weekLine: { color: theme.colors.text, fontSize: 13 },
+  empty: {
+    color: theme.colors.textSecondary,
+    fontSize: 14,
+    fontStyle: "italic",
+  },
   refreshBtn: {
     alignSelf: "center",
     marginTop: 8,
@@ -201,5 +292,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  refreshText: { color: colors.accent, fontWeight: "600" },
+  refreshText: { color: theme.colors.primary, fontWeight: "600" },
 });

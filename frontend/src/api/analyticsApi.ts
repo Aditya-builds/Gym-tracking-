@@ -1,5 +1,4 @@
 import apiClient from "./apiClient";
-import { getExercisesBySession, getWorkoutSessions } from "./workoutApi";
 
 export interface ExerciseProgressPoint {
   exerciseName: string;
@@ -8,20 +7,17 @@ export interface ExerciseProgressPoint {
   volume: number;
   estimatedOneRepMax: number;
   createdAt: string;
+  workoutDate?: string;
+  weekNumber?: number;
+  trainingDay?: string;
+  setNumber?: number;
+  notes?: string;
 }
 
 export interface WeeklyVolumePoint {
   weekNumber: number;
   totalVolume: number;
 }
-
-export type ExerciseEntryOption = {
-  id: number;
-  exerciseName: string;
-  weekNumber: number;
-  trainingDay: string;
-  workoutDate: string;
-};
 
 export const getExerciseProgress = async (
   exerciseEntryId: number
@@ -41,34 +37,62 @@ export const getWeeklyVolume = async (
   return response.data;
 };
 
-/** Latest exercise entry per lift name — for analytics picker. */
-export const listRecentExerciseEntries = async (): Promise<
-  ExerciseEntryOption[]
-> => {
-  const sessions = await getWorkoutSessions();
-  const sorted = [...sessions].sort((a, b) =>
-    b.workoutDate.localeCompare(a.workoutDate)
-  );
+export const getProgressByExerciseName = async (
+  exerciseName: string,
+  trainingDay?: string
+): Promise<ExerciseProgressPoint[]> => {
+  const response = await apiClient.get("/api/analytics/by-name", {
+    params: {
+      name: exerciseName,
+      ...(trainingDay ? { trainingDay } : {}),
+    },
+  });
+  return response.data;
+};
 
-  const byName = new Map<string, ExerciseEntryOption>();
+export const getWeeklyVolumeByExerciseName = async (
+  exerciseName: string,
+  trainingDay?: string
+): Promise<WeeklyVolumePoint[]> => {
+  const response = await apiClient.get("/api/analytics/volume-by-name", {
+    params: {
+      name: exerciseName,
+      ...(trainingDay ? { trainingDay } : {}),
+    },
+  });
+  return response.data;
+};
 
-  for (const session of sorted) {
-    const entries = await getExercisesBySession(session.id);
-    for (const entry of entries) {
-      const existing = byName.get(entry.exerciseName);
-      if (!existing || entry.id > existing.id) {
-        byName.set(entry.exerciseName, {
-          id: entry.id,
-          exerciseName: entry.exerciseName,
-          weekNumber: session.weekNumber,
-          trainingDay: session.trainingDay,
-          workoutDate: session.workoutDate,
-        });
-      }
-    }
+/** Best weight per workout date — for progress charts. */
+export function bestWeightBySession(
+  points: ExerciseProgressPoint[]
+): { label: string; value: number }[] {
+  const byDate = new Map<string, number>();
+
+  for (const point of points) {
+    const date = point.workoutDate ?? point.createdAt?.slice(0, 10) ?? "?";
+    const weight = Number(point.weight) || 0;
+    byDate.set(date, Math.max(byDate.get(date) ?? 0, weight));
   }
 
-  return Array.from(byName.values()).sort((a, b) =>
-    a.exerciseName.localeCompare(b.exerciseName)
-  );
-};
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([label, value]) => ({ label: label.slice(5), value }));
+}
+
+/** Best estimated 1RM per workout date. */
+export function bestE1rmBySession(
+  points: ExerciseProgressPoint[]
+): { label: string; value: number }[] {
+  const byDate = new Map<string, number>();
+
+  for (const point of points) {
+    const date = point.workoutDate ?? point.createdAt?.slice(0, 10) ?? "?";
+    const e1rm = Number(point.estimatedOneRepMax) || 0;
+    byDate.set(date, Math.max(byDate.get(date) ?? 0, e1rm));
+  }
+
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([label, value]) => ({ label: label.slice(5), value }));
+}

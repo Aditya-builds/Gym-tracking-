@@ -8,7 +8,7 @@ import {
   Platform,
   TextInput,
 } from "react-native";
-import { exportBackup, importWorkoutPlan, importWorkoutPlanText } from "../api/planApi";
+import { exportBackup, importBackup, importWorkoutPlan, importWorkoutPlanText } from "../api/planApi";
 import { colors } from "../theme/colors";
 
 const SAMPLE_PLAN = `{
@@ -45,6 +45,21 @@ export default function BackupScreen() {
       Alert.alert("Success", "Workout plan uploaded — check Workouts tab.");
     } catch {
       Alert.alert("Error", "Invalid plan or API unavailable.");
+    }
+  };
+
+  const handleImportBackup = async () => {
+    try {
+      const raw = planJson.trim();
+      if (!raw.startsWith("{")) {
+        Alert.alert("Error", "Paste full backup JSON (starts with {).");
+        return;
+      }
+      await importBackup(JSON.parse(raw));
+      setStatus("Full backup restored successfully.");
+      Alert.alert("Success", "Backup imported.");
+    } catch {
+      Alert.alert("Error", "Invalid backup JSON or API unavailable.");
     }
   };
 
@@ -92,6 +107,10 @@ export default function BackupScreen() {
         <Text style={styles.btnPrimaryText}>Upload workout plan</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={styles.btnSecondary} onPress={handleImportBackup}>
+        <Text style={styles.btnSecondaryText}>Restore full backup JSON</Text>
+      </TouchableOpacity>
+
       {status ? <Text style={styles.status}>{status}</Text> : null}
 
       {Platform.OS === "web" ? (
@@ -133,6 +152,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   btnPrimaryText: { color: colors.accentText, fontWeight: "700", fontSize: 16 },
+  btnSecondary: {
+    borderWidth: 1,
+    borderColor: colors.cardBorder,
+    borderRadius: 10,
+    padding: 14,
+    alignItems: "center",
+    marginTop: 8,
+  },
+  btnSecondaryText: { color: colors.text, fontWeight: "600", fontSize: 15 },
   status: { color: colors.muted, marginTop: 12, fontSize: 13 },
   webTip: { color: colors.muted, marginTop: 16, fontSize: 12 },
 });

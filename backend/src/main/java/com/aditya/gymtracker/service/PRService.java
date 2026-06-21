@@ -4,6 +4,7 @@ import com.aditya.gymtracker.entity.ExerciseDefinition;
 import com.aditya.gymtracker.entity.PersonalRecord;
 import com.aditya.gymtracker.entity.SetEntry;
 import com.aditya.gymtracker.repository.PersonalRecordRepository;
+import com.aditya.gymtracker.util.PRDetector;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class PRService {
                         .max(BigDecimal::compareTo)
                         .orElse(BigDecimal.ZERO);
 
-        if (currentVolume.compareTo(bestVolume) > 0) {
+        if (PRDetector.isNewPR(currentVolume, bestVolume)) {
 
             PersonalRecord pr =
                     new PersonalRecord();

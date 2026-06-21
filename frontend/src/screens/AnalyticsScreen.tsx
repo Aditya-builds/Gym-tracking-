@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -9,18 +9,21 @@ import {
   RefreshControl,
 } from "react-native";
 import {
-  ExerciseEntryOption,
+  bestE1rmBySession,
+  bestWeightBySession,
   ExerciseProgressPoint,
-  getExerciseProgress,
-  getWeeklyVolume,
-  listRecentExerciseEntries,
+  getProgressByExerciseName,
+  getWeeklyVolumeByExerciseName,
   WeeklyVolumePoint,
 } from "../api/analyticsApi";
+import { getExercisesForDay, getWorkoutPlan, PlanDay, WorkoutPlan } from "../api/planApi";
+import ProgressChart from "../components/ProgressChart";
 import { colors } from "../theme/colors";
 
 export default function AnalyticsScreen() {
-  const [exercises, setExercises] = useState<ExerciseEntryOption[]>([]);
-  const [selected, setSelected] = useState<ExerciseEntryOption | null>(null);
+  const [plan, setPlan] = useState<WorkoutPlan | null>(null);
+  const [selectedDay, setSelectedDay] = useState<PlanDay | null>(null);
+  const [selectedExercise, setSelectedExercise] = useState<string | null>(null);
   const [progress, setProgress] = useState<ExerciseProgressPoint[]>([]);
   const [volume, setVolume] = useState<WeeklyVolumePoint[]>([]);
   const [loading, setLoading] = useState(true);
@@ -28,32 +31,40 @@ export default function AnalyticsScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const loadExercises = useCallback(async () => {
+  const planDays = plan?.days ?? [];
+  const dayExercises = useMemo(
+    () => getExercisesForDay(plan, selectedDay?.label ?? ""),
+    [plan, selectedDay]
+  );
+
+  const loadPlan = useCallback(async () => {
     try {
       setError(null);
-      const list = await listRecentExerciseEntries();
-      setExercises(list);
-      setSelected((prev) => prev ?? list[0] ?? null);
-    } catch (e) {
-      console.error("Analytics exercise list failed", e);
-      setError("Could not load exercises — is the API running?");
+      const loaded = await getWorkoutPlan();
+      setPlan(loaded);
+      const days = loaded?.days ?? [];
+      setSelectedDay((prev) => {
+        if (prev && days.some((d) => d.label === prev.label)) return prev;
+        return days[0] ?? null;
+      });
+    } catch {
+      setError("Could not load plan — set up your plan first.");
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
   }, []);
 
-  const loadDetail = useCallback(async (entry: ExerciseEntryOption) => {
+  const loadProgress = useCallback(async (dayLabel: string, exerciseName: string) => {
     setDetailLoading(true);
     try {
       const [prog, vol] = await Promise.all([
-        getExerciseProgress(entry.id),
-        getWeeklyVolume(entry.id),
+        getProgressByExerciseName(exerciseName, dayLabel),
+        getWeeklyVolumeByExerciseName(exerciseName, dayLabel),
       ]);
       setProgress(prog);
       setVolume(vol);
-    } catch (e) {
-      console.error("Analytics detail failed", e);
+    } catch {
       setProgress([]);
       setVolume([]);
     } finally {
@@ -62,19 +73,40 @@ export default function AnalyticsScreen() {
   }, []);
 
   useEffect(() => {
-    loadExercises();
-  }, []);
+    loadPlan();
+  }, [loadPlan]);
 
   useEffect(() => {
-    if (selected) loadDetail(selected);
-  }, [selected, loadDetail]);
+    if (!selectedDay) {
+      setSelectedExercise(null);
+      return;
+    }
+    const exercises = getExercisesForDay(plan, selectedDay.label);
+    setSelectedExercise((prev) => {
+      if (prev && exercises.some((e) => e.name === prev)) return prev;
+      return exercises[0]?.name ?? null;
+    });
+  }, [plan, selectedDay]);
+
+  useEffect(() => {
+    if (selectedDay && selectedExercise) {
+      loadProgress(selectedDay.label, selectedExercise);
+    } else {
+      setProgress([]);
+      setVolume([]);
+    }
+  }, [selectedDay, selectedExercise, loadProgress]);
 
   const onRefresh = () => {
     setRefreshing(true);
-    loadExercises();
-    if (selected) loadDetail(selected);
+    loadPlan();
+    if (selectedDay && selectedExercise) {
+      loadProgress(selectedDay.label, selectedExercise);
+    }
   };
 
+  const weightChart = useMemo(() => bestWeightBySession(progress), [progress]);
+  const e1rmChart = useMemo(() => bestE1rmBySession(progress), [progress]);
   const maxVol = Math.max(...volume.map((v) => Number(v.totalVolume) || 0), 1);
 
   if (loading) {
@@ -93,76 +125,134 @@ export default function AnalyticsScreen() {
       }
     >
       <Text style={styles.title}>Analytics</Text>
-      <Text style={styles.hint}>Strength trends and weekly volume per lift.</Text>
+      <Text style={styles.hint}>
+        Pick a training day, then an exercise, to see your progress graph.
+      </Text>
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <Text style={styles.sectionLabel}>Select exercise</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll}>
-        {exercises.map((ex) => (
-          <TouchableOpacity
-            key={ex.id}
-            style={[styles.chip, selected?.id === ex.id && styles.chipActive]}
-            onPress={() => setSelected(ex)}
-          >
-            <Text style={[styles.chipText, selected?.id === ex.id && styles.chipTextActive]}>
-              {ex.exerciseName}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {!exercises.length ? (
+      {!planDays.length ? (
         <Text style={styles.empty}>
-          No logged exercises yet. Use the Log tab to save sets, then return here.
+          No plan yet. Use the Plan tab to add training days and exercises.
         </Text>
-      ) : null}
+      ) : (
+        <>
+          <Text style={styles.sectionLabel}>Training day</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll}>
+            {planDays.map((day) => (
+              <TouchableOpacity
+                key={day.dayNumber}
+                style={[
+                  styles.chip,
+                  selectedDay?.label === day.label && styles.chipActive,
+                ]}
+                onPress={() => setSelectedDay(day)}
+              >
+                <Text
+                  style={[
+                    styles.chipText,
+                    selectedDay?.label === day.label && styles.chipTextActive,
+                  ]}
+                >
+                  {day.title || day.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
 
-      {selected ? (
-        <Text style={styles.meta}>
-          W{selected.weekNumber} · {selected.trainingDay} · {selected.workoutDate}
-        </Text>
-      ) : null}
+          {selectedDay ? (
+            <>
+              <Text style={styles.sectionLabel}>Exercise on {selectedDay.title || "this day"}</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipScroll}>
+                {dayExercises.map((exercise) => (
+                  <TouchableOpacity
+                    key={exercise.name}
+                    style={[
+                      styles.chip,
+                      selectedExercise === exercise.name && styles.chipActive,
+                    ]}
+                    onPress={() => setSelectedExercise(exercise.name)}
+                  >
+                    <Text
+                      style={[
+                        styles.chipText,
+                        selectedExercise === exercise.name && styles.chipTextActive,
+                      ]}
+                    >
+                      {exercise.name}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </>
+          ) : null}
+
+          {!dayExercises.length && selectedDay ? (
+            <Text style={styles.empty}>No exercises on this day in your plan.</Text>
+          ) : null}
+        </>
+      )}
 
       {detailLoading ? (
         <ActivityIndicator color={colors.accent} style={{ marginVertical: 16 }} />
       ) : null}
 
-      {volume.length > 0 ? (
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Weekly volume</Text>
-          {volume.map((v) => {
-            const pct = Math.round((Number(v.totalVolume) / maxVol) * 100);
-            return (
-              <View key={v.weekNumber} style={styles.barRow}>
-                <Text style={styles.barLabel}>W{v.weekNumber}</Text>
-                <View style={styles.barTrack}>
-                  <View style={[styles.barFill, { width: `${pct}%` }]} />
-                </View>
-                <Text style={styles.barValue}>{v.totalVolume}</Text>
-              </View>
-            );
-          })}
-        </View>
-      ) : null}
+      {selectedExercise && !detailLoading ? (
+        <>
+          <View style={styles.card}>
+            <ProgressChart
+              title="Best weight per session"
+              points={weightChart}
+              unit="kg"
+              emptyMessage="No logged sets for this exercise on this day yet."
+            />
+          </View>
 
-      {progress.length > 0 ? (
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Set history</Text>
-          {progress.map((p, i) => (
-            <View key={i} style={styles.setRow}>
-              <Text style={styles.setMain}>
-                {p.weight} kg × {p.reps}
-              </Text>
-              <Text style={styles.setSub}>
-                Vol {p.volume?.toFixed?.(0) ?? p.volume} · e1RM{" "}
-                {p.estimatedOneRepMax?.toFixed?.(1) ?? p.estimatedOneRepMax}
-              </Text>
+          <View style={styles.card}>
+            <ProgressChart
+              title="Estimated 1RM trend"
+              points={e1rmChart}
+              unit="kg"
+              emptyMessage="Log sets to build your strength curve."
+            />
+          </View>
+
+          {volume.length > 0 ? (
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>Weekly volume</Text>
+              {volume.map((v) => {
+                const pct = Math.round((Number(v.totalVolume) / maxVol) * 100);
+                return (
+                  <View key={v.weekNumber} style={styles.barRow}>
+                    <Text style={styles.barLabel}>W{v.weekNumber}</Text>
+                    <View style={styles.barTrack}>
+                      <View style={[styles.barFill, { width: `${pct}%` }]} />
+                    </View>
+                    <Text style={styles.barValue}>{v.totalVolume}</Text>
+                  </View>
+                );
+              })}
             </View>
-          ))}
-        </View>
-      ) : selected && !detailLoading ? (
-        <Text style={styles.empty}>No sets for this entry yet.</Text>
+          ) : null}
+
+          {progress.length > 0 ? (
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>Set history</Text>
+              {progress.map((p, i) => (
+                <View key={i} style={styles.setRow}>
+                  <Text style={styles.setMain}>
+                    {p.workoutDate ?? "—"} · {p.weight} kg × {p.reps}
+                  </Text>
+              <Text style={styles.setSub}>
+                W{p.weekNumber ?? "?"} · Vol {Number(p.volume).toFixed(0)} · e1RM{" "}
+                {Number(p.estimatedOneRepMax).toFixed(1)}
+                {p.notes ? ` · "${p.notes}"` : ""}
+              </Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+        </>
       ) : null}
     </ScrollView>
   );
@@ -180,6 +270,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 0.5,
     marginBottom: 8,
+    marginTop: 4,
   },
   chipScroll: { marginBottom: 12, maxHeight: 48 },
   chip: {
@@ -196,7 +287,6 @@ const styles = StyleSheet.create({
   chipActive: { backgroundColor: colors.accent, borderColor: colors.accent },
   chipText: { color: colors.muted, fontWeight: "600", fontSize: 13 },
   chipTextActive: { color: colors.accentText },
-  meta: { color: colors.muted, fontSize: 12, marginBottom: 12 },
   card: {
     backgroundColor: colors.card,
     borderRadius: 14,

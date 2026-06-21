@@ -24,6 +24,8 @@ public class SetEntryResponse {
 
     private Boolean isPr;
 
+    private String notes;
+
     private BigDecimal volume;
 
     private Double estimatedOneRepMax;

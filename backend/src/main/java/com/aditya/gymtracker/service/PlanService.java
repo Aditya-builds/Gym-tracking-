@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,6 +53,7 @@ public class PlanService {
         }
 
         if (plan.getDays() != null) {
+            normalizeFromDays(plan);
             for (PlanDay day : plan.getDays()) {
                 for (PlanExercise ex : day.allExercises()) {
                     ExerciseDefinition def = new ExerciseDefinition();
@@ -100,5 +102,27 @@ public class PlanService {
         return name.toLowerCase(Locale.ROOT)
                 .replaceAll("[^a-z0-9]+", "_")
                 .replaceAll("^_|_$", "");
+    }
+
+    /** Keep trainingDays + daySchedule in sync when clients send only structured days. */
+    private void normalizeFromDays(WorkoutPlan plan) {
+        if (plan.getDays() == null || plan.getDays().isEmpty()) {
+            return;
+        }
+
+        List<String> labels = plan.getDays().stream()
+                .map(PlanDay::getLabel)
+                .toList();
+        plan.setTrainingDays(labels);
+
+        Map<String, List<String>> schedule = new LinkedHashMap<>();
+        for (PlanDay day : plan.getDays()) {
+            List<String> names = day.allExercises().stream()
+                    .map(PlanExercise::getName)
+                    .filter(n -> n != null && !n.isBlank())
+                    .toList();
+            schedule.put(day.getLabel(), names);
+        }
+        plan.setDaySchedule(schedule);
     }
 }

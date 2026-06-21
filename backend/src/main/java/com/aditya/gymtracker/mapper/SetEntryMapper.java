@@ -27,6 +27,8 @@ public class SetEntryMapper {
 
         response.setRir(entity.getRir());
 
+        response.setNotes(entity.getNotes());
+
         response.setIsPr(entity.getIsPr());
 
         response.setVolume(

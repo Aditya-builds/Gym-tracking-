@@ -44,6 +44,7 @@ export interface CreateSetEntryPayload {
   weight: number;
   reps: number;
   rir?: number;
+  notes?: string;
 }
 
 export interface SetEntry {
@@ -53,6 +54,7 @@ export interface SetEntry {
   weight: number;
   reps: number;
   rir?: number;
+  notes?: string;
   isPr?: boolean;
   volume?: number;
   estimatedOneRepMax?: number;
@@ -92,6 +94,15 @@ export const createWorkoutSession = async (
 export const getWorkoutSessions = async (): Promise<WorkoutSession[]> => {
   const response = await apiClient.get("/api/workouts");
   return response.data;
+};
+
+export const getWorkoutSession = async (id: number): Promise<WorkoutSession> => {
+  const response = await apiClient.get(`/api/workouts/${id}`);
+  return response.data;
+};
+
+export const deleteWorkoutSession = async (id: number): Promise<void> => {
+  await apiClient.delete(`/api/workouts/${id}`);
 };
 
 export const createExerciseEntry = async (

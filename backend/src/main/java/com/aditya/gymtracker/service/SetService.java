@@ -55,6 +55,10 @@ public class SetService {
                 request.getRir()
         );
 
+        setEntry.setNotes(
+                request.getNotes()
+        );
+
         try {
             setEntryRepository.persist(setEntry);
         } catch (IOException e) {

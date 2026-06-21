@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ public class CreateSetEntryRequest {
     @Min(1)
     private Integer setNumber;
 
-    @Positive
+    @PositiveOrZero
     private BigDecimal weight;
 
     @Positive
@@ -29,4 +30,6 @@ public class CreateSetEntryRequest {
     @Min(0)
     @Max(5)
     private Integer rir;
+
+    private String notes;
 }

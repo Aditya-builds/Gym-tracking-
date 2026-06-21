@@ -9,12 +9,13 @@ import {
   Platform,
 } from "react-native";
 import * as Haptics from "expo-haptics";
-import { PlanExercise } from "../data/workoutPlan";
+import { WorkoutPlan } from "../api/planApi";
+import { TodayExercise } from "../utils/planUtils";
 import {
   deloadSuggestedWeightKg,
   LastSetSummary,
   saveSet,
-} from "../services/setLogStore";
+} from "../services/todayWorkoutService";
 import { todayColors } from "../theme/todayColors";
 
 const WEIGHT_STEP = 2.5;
@@ -22,7 +23,9 @@ const MIN_TOUCH = 44;
 
 type Props = {
   visible: boolean;
-  exercise: PlanExercise | null;
+  exercise: TodayExercise | null;
+  plan: WorkoutPlan | null;
+  orderIndex: number;
   lastSet: LastSetSummary | null;
   setNumber: number;
   deload: boolean;
@@ -77,6 +80,8 @@ function Stepper({
 export default function SetLoggerModal({
   visible,
   exercise,
+  plan,
+  orderIndex,
   lastSet,
   setNumber,
   deload,
@@ -132,7 +137,7 @@ export default function SetLoggerModal({
     if (!exercise || saving) return;
     setSaving(true);
     try {
-      const summary = await saveSet(exercise.id, {
+      const summary = await saveSet(exercise.name, plan, orderIndex, {
         setNumber,
         isBodyweight: supportsBw && isBw,
         weightKg: supportsBw && isBw ? bwAddedKg : weightKg,
