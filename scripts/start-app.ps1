@@ -82,8 +82,8 @@ if (-not $NoExpo) {
     } elseif (Test-PortListening $ExpoPort) {
         Write-Host "[Expo] Port $ExpoPort already in use - assuming Expo is running." -ForegroundColor Yellow
     } else {
-        Write-Host "[Expo] Starting Expo on http://localhost:$ExpoPort ..."
-        $expoCmd = "`$env:EXPO_ROUTER_DISABLE_RN_NAVIGATION_CHECK='1'; npx expo start --port $ExpoPort"
+        Write-Host "[Expo] Starting Expo web UI on http://localhost:$ExpoPort ..."
+        $expoCmd = "`$env:EXPO_ROUTER_DISABLE_RN_NAVIGATION_CHECK='1'; npx expo start --web --port $ExpoPort"
         Start-ServiceWindow "Gym Tracker Expo" $FrontendDir $expoCmd
     }
 }

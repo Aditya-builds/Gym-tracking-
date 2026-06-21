@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -9,37 +9,54 @@ import {
   NativeScrollEvent,
   Dimensions,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import SetLoggerModal from "../components/SetLoggerModal";
+import { getWorkoutPlan, WorkoutPlan } from "../api/planApi";
+import { getWorkoutSessions } from "../api/workoutApi";
 import {
-  WORKOUT_PLAN,
-  PlanDay,
-  PlanExercise,
-  weekdayToDayIndex,
-  isDeloadWeek,
   deloadTargetLabel,
-  TOTAL_WEEKS,
-} from "../data/workoutPlan";
+  exerciseKey,
+  getTodayPlanDays,
+  isDeloadWeek,
+  TodayExercise,
+  TodayPlanDay,
+  totalWeeks,
+  weekdayToDayIndex,
+  weekFromBlockStart,
+} from "../utils/planUtils";
 import {
+  ensureTodaySession,
   formatLastSet,
   getLastSet,
   getNextSetNumber,
   LastSetSummary,
-} from "../services/setLogStore";
+  refreshLastSets,
+} from "../services/todayWorkoutService";
 import { todayColors } from "../theme/todayColors";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-function weekFromBlockStart(blockStart: Date, today: Date = new Date()): number {
-  const ms = today.getTime() - blockStart.getTime();
-  const weeks = Math.floor(ms / (7 * 24 * 60 * 60 * 1000)) + 1;
-  return Math.min(TOTAL_WEEKS, Math.max(1, weeks));
+function mapLastSetsToExerciseIds(
+  days: TodayPlanDay[],
+  lastByName: Record<string, LastSetSummary>
+): Record<string, LastSetSummary> {
+  const mapped: Record<string, LastSetSummary> = {};
+  for (const day of days) {
+    for (const section of day.sections) {
+      for (const exercise of section.exercises) {
+        const last = lastByName[exerciseKey(exercise.name)];
+        if (last) mapped[exercise.id] = last;
+      }
+    }
+  }
+  return mapped;
 }
 
 type ExerciseRowProps = {
-  exercise: PlanExercise;
+  exercise: TodayExercise;
   deload: boolean;
   lastLabel: string;
   onLog: () => void;
@@ -71,36 +88,96 @@ function ExerciseRow({ exercise, deload, lastLabel, onLog }: ExerciseRowProps) {
 export default function TodayScreen() {
   const pagerRef = useRef<ScrollView>(null);
   const [pageWidth, setPageWidth] = useState(SCREEN_WIDTH - 64);
-  const [dayIndex, setDayIndex] = useState(() => weekdayToDayIndex());
-  const [currentWeek, setCurrentWeek] = useState(() =>
-    weekFromBlockStart(new Date(2026, 3, 27))
-  );
+  const [plan, setPlan] = useState<WorkoutPlan | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [dayIndex, setDayIndex] = useState(0);
+  const [currentWeek, setCurrentWeek] = useState(1);
   const [lastSets, setLastSets] = useState<Record<string, LastSetSummary>>({});
-  const [loggerExercise, setLoggerExercise] = useState<PlanExercise | null>(null);
+  const [loggerExercise, setLoggerExercise] = useState<TodayExercise | null>(null);
+  const [loggerOrderIndex, setLoggerOrderIndex] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
 
+  const planDays = useMemo(() => getTodayPlanDays(plan), [plan]);
+  const maxWeeks = totalWeeks(plan);
   const deload = isDeloadWeek(currentWeek);
-  const activeDay: PlanDay = WORKOUT_PLAN[dayIndex] ?? WORKOUT_PLAN[0];
+  const activeDay = planDays[dayIndex] ?? planDays[0];
 
-  const refreshLastSets = useCallback(() => {
-    const map: Record<string, LastSetSummary> = {};
-    for (const day of WORKOUT_PLAN) {
-      for (const section of day.sections) {
-        for (const ex of section.exercises) {
-          const last = getLastSet(ex.id);
-          if (last) map[ex.id] = last;
-        }
+  const mapLastSetsById = useCallback(
+    (lastByName: Record<string, LastSetSummary>, days = planDays) =>
+      mapLastSetsToExerciseIds(days, lastByName),
+    [planDays]
+  );
+
+  const loadPlan = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [loadedPlan, sessions] = await Promise.all([
+        getWorkoutPlan(),
+        getWorkoutSessions(),
+      ]);
+      setPlan(loadedPlan);
+
+      const days = getTodayPlanDays(loadedPlan);
+      const weeks = totalWeeks(loadedPlan);
+      const initialDayIndex = weekdayToDayIndex(new Date(), days.length);
+      setDayIndex(initialDayIndex);
+
+      const earliest = sessions.map((session) => session.workoutDate).sort()[0];
+      const blockStart = earliest ? new Date(earliest) : new Date();
+      const week = weekFromBlockStart(blockStart, new Date(), weeks);
+      setCurrentWeek(week);
+
+      const names = days.flatMap((day) =>
+        day.sections.flatMap((section) =>
+          section.exercises.map((exercise) => exercise.name)
+        )
+      );
+
+      if (days.length > 0) {
+        const dayLabel = days[initialDayIndex]?.label ?? days[0].label;
+        await ensureTodaySession(week, dayLabel);
       }
+
+      if (names.length > 0) {
+        const lastByName = await refreshLastSets(names);
+        setLastSets(mapLastSetsToExerciseIds(days, lastByName));
+      }
+    } catch {
+      setError("Could not load plan — is the backend running?");
+    } finally {
+      setLoading(false);
     }
-    setLastSets(map);
   }, []);
 
-  React.useEffect(() => {
-    refreshLastSets();
-  }, [refreshLastSets]);
+  useEffect(() => {
+    loadPlan();
+  }, [loadPlan]);
 
-  const openLogger = (exercise: PlanExercise) => {
+  const syncSessionAndLastSets = useCallback(async () => {
+    if (!activeDay) return;
+    try {
+      await ensureTodaySession(currentWeek, activeDay.label);
+      const names = activeDay.sections.flatMap((section) =>
+        section.exercises.map((exercise) => exercise.name)
+      );
+      const lastByName = await refreshLastSets(names);
+      setLastSets((prev) => ({ ...prev, ...mapLastSetsById(lastByName) }));
+    } catch {
+      setError("Could not sync workout session.");
+    }
+  }, [activeDay, currentWeek, mapLastSetsById]);
+
+  useEffect(() => {
+    if (!loading && activeDay) {
+      syncSessionAndLastSets();
+    }
+  }, [activeDay?.label, currentWeek, loading, syncSessionAndLastSets]);
+
+  const openLogger = (exercise: TodayExercise, orderIndex: number) => {
     setLoggerExercise(exercise);
+    setLoggerOrderIndex(orderIndex);
     setModalVisible(true);
   };
 
@@ -109,7 +186,8 @@ export default function TodayScreen() {
   };
 
   const goToDay = (index: number) => {
-    const clamped = Math.max(0, Math.min(WORKOUT_PLAN.length - 1, index));
+    if (planDays.length === 0) return;
+    const clamped = Math.max(0, Math.min(planDays.length - 1, index));
     setDayIndex(clamped);
     pagerRef.current?.scrollTo({ x: clamped * pageWidth, animated: true });
   };
@@ -130,6 +208,27 @@ export default function TodayScreen() {
       currentWeek >= 7 ? "Deload" : currentWeek >= 5 ? "Peak" : "Build";
     return `Week ${currentWeek} · ${phase}`;
   }, [currentWeek]);
+
+  if (loading) {
+    return (
+      <View style={[styles.root, styles.centered]}>
+        <ActivityIndicator size="large" color={todayColors.accent} />
+      </View>
+    );
+  }
+
+  if (error || planDays.length === 0) {
+    return (
+      <View style={styles.root}>
+        <Text style={styles.errorText}>
+          {error ?? "No workout plan loaded. Import a plan from the Backup tab."}
+        </Text>
+        <TouchableOpacity style={styles.retryBtn} onPress={loadPlan}>
+          <Text style={styles.retryText}>Retry</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -152,7 +251,7 @@ export default function TodayScreen() {
         <View style={styles.weekStepper}>
           <TouchableOpacity
             style={styles.weekBtn}
-            onPress={() => setCurrentWeek((w) => Math.max(1, w - 1))}
+            onPress={() => setCurrentWeek((week) => Math.max(1, week - 1))}
             accessibilityLabel="Previous week"
           >
             <Text style={styles.weekBtnText}>−</Text>
@@ -160,7 +259,9 @@ export default function TodayScreen() {
           <Text style={styles.weekNum}>W{currentWeek}</Text>
           <TouchableOpacity
             style={styles.weekBtn}
-            onPress={() => setCurrentWeek((w) => Math.min(TOTAL_WEEKS, w + 1))}
+            onPress={() =>
+              setCurrentWeek((week) => Math.min(maxWeeks, week + 1))
+            }
             accessibilityLabel="Next week"
           >
             <Text style={styles.weekBtnText}>+</Text>
@@ -179,24 +280,24 @@ export default function TodayScreen() {
         <View style={styles.dayCenter}>
           <Text style={styles.dayLabel}>{activeDay.label}</Text>
           <Text style={styles.autoHint}>
-            Auto: {DAY_NAMES[weekdayToDayIndex()]} workout · swipe or arrows to change
+            Auto: {DAY_NAMES[weekdayToDayIndex(new Date(), planDays.length)]} workout · swipe or arrows to change
           </Text>
         </View>
         <TouchableOpacity
           style={styles.dayArrow}
           onPress={() => goToDay(dayIndex + 1)}
-          disabled={dayIndex === WORKOUT_PLAN.length - 1}
+          disabled={dayIndex === planDays.length - 1}
         >
           <Text style={styles.dayArrowText}>›</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.dots}>
-        {WORKOUT_PLAN.map((d, i) => (
+        {planDays.map((day, index) => (
           <TouchableOpacity
-            key={d.dayNumber}
-            style={[styles.dot, i === dayIndex && styles.dotActive]}
-            onPress={() => goToDay(i)}
+            key={day.dayNumber}
+            style={[styles.dot, index === dayIndex && styles.dotActive]}
+            onPress={() => goToDay(index)}
           />
         ))}
       </View>
@@ -211,7 +312,7 @@ export default function TodayScreen() {
           style={styles.pager}
           contentContainerStyle={styles.pagerContent}
         >
-          {WORKOUT_PLAN.map((day) => (
+          {planDays.map((day) => (
             <ScrollView
               key={day.dayNumber}
               style={{ width: pageWidth }}
@@ -219,16 +320,20 @@ export default function TodayScreen() {
               showsVerticalScrollIndicator={false}
               nestedScrollEnabled
             >
-              {day.sections.map((section) => (
-                <View key={section.name} style={styles.section}>
+              {day.sections.map((section, sectionIndex) => (
+                <View key={`${day.dayNumber}-${sectionIndex}`} style={styles.section}>
                   <Text style={styles.sectionTitle}>{section.name}</Text>
-                  {section.exercises.map((exercise) => (
+                  {section.exercises.map((exercise, index) => (
                     <ExerciseRow
                       key={exercise.id}
                       exercise={exercise}
                       deload={deload}
-                      lastLabel={formatLastSet(lastSets[exercise.id] ?? null)}
-                      onLog={() => openLogger(exercise)}
+                      lastLabel={formatLastSet(
+                        lastSets[exercise.id] ??
+                          getLastSet(exercise.name) ??
+                          null
+                      )}
+                      onLog={() => openLogger(exercise, index + 1)}
                     />
                   ))}
                 </View>
@@ -241,9 +346,19 @@ export default function TodayScreen() {
       <SetLoggerModal
         visible={modalVisible}
         exercise={loggerExercise}
-        lastSet={loggerExercise ? lastSets[loggerExercise.id] ?? null : null}
+        plan={plan}
+        orderIndex={loggerOrderIndex}
+        lastSet={
+          loggerExercise
+            ? lastSets[loggerExercise.id] ??
+              getLastSet(loggerExercise.name) ??
+              null
+            : null
+        }
         setNumber={
-          loggerExercise ? getNextSetNumber(loggerExercise.id) : 1
+          loggerExercise
+            ? getNextSetNumber(loggerExercise.name)
+            : 1
         }
         deload={deload}
         onClose={() => setModalVisible(false)}
@@ -262,6 +377,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: todayColors.border,
   },
+  centered: {
+    minHeight: 200,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    color: todayColors.muted,
+    textAlign: "center",
+    marginBottom: 12,
+  },
+  retryBtn: {
+    alignSelf: "center",
+    backgroundColor: todayColors.accent,
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+  },
+  retryText: { color: "#fff", fontWeight: "700" },
   deloadBanner: {
     backgroundColor: todayColors.deloadBanner,
     paddingVertical: 10,

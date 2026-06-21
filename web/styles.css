@@ -123,6 +123,77 @@ body {
   margin-bottom: 1rem;
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.progress-chart {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  min-height: 180px;
+}
+
+.progress-chart svg {
+  width: 100%;
+  height: 160px;
+  display: block;
+}
+
+.progress-chart .chart-empty {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.progress-chart .chart-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.dashboard-charts {
+  margin: 1.25rem 0;
+}
+
+.dashboard-charts .section-heading,
+.section-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+}
+
+.dashboard-charts .chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.dashboard-charts svg {
+  width: 100%;
+  height: 160px;
+  display: block;
+}
+
+.dashboard-charts .chart-empty {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.dashboard-charts .chart-meta {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
 .grid-4 {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
@@ -354,6 +425,46 @@ body {
 .plan-preview ul {
   margin: 0 0 0.5rem 1rem;
   padding: 0;
+}
+
+.plan-builder-days {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.plan-builder-day {
+  padding: 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+.plan-builder-day h4 {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+}
+
+.plan-builder-exercise-row {
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.btn.icon-btn {
+  min-width: 36px;
+  padding: 0.35rem;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.btn.small {
+  margin-top: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
 }
 
 .hidden {

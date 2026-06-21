@@ -62,3 +62,8 @@ export const exportBackup = async () => {
   const response = await apiClient.get("/api/backup/export");
   return response.data;
 };
+
+export const importBackup = async (data: unknown) => {
+  const response = await apiClient.post("/api/backup/import", data);
+  return response.data;
+};

@@ -22,6 +22,7 @@ public class SetEntry {
     private Integer reps;
     private Integer rir;
     private Boolean isPr = false;
+    private String notes;
     private Instant createdAt;
 
     public BigDecimal calculateVolume() {

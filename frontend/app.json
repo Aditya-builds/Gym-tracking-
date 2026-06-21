@@ -30,15 +30,7 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Allow Gym Tracker to access your photos.",
-          "cameraPermission": "Allow Gym Tracker to access your camera."
-        }
-      ]
-    ],
+    "plugins": [],
     "extra": {
       "apiBaseUrl": "http://localhost:8080"
     }

@@ -21,4 +21,14 @@ public class ExerciseProgressResponse {
     private Double estimatedOneRepMax;
 
     private Instant createdAt;
+
+    private String workoutDate;
+
+    private Integer weekNumber;
+
+    private String trainingDay;
+
+    private Integer setNumber;
+
+    private String notes;
 }

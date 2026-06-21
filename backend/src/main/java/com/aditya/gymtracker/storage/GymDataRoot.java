@@ -1,6 +1,7 @@
 package com.aditya.gymtracker.storage;
 
 import com.aditya.gymtracker.entity.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GymDataRoot {
 
     private List<User> users = new ArrayList<>();
@@ -22,7 +24,5 @@ public class GymDataRoot {
     private List<SetEntry> setEntries = new ArrayList<>();
     private List<BodyMeasurement> bodyMeasurements = new ArrayList<>();
     private List<PersonalRecord> personalRecords = new ArrayList<>();
-    private List<KeyLiftWeek> keyLifts = new ArrayList<>();
-    private List<WeeklySummaryEntry> weeklySummaries = new ArrayList<>();
     private WorkoutPlan workoutPlan;
 }

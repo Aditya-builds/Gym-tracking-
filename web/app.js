@@ -303,6 +303,169 @@ function renderPlanPreview(plan) {
   el.innerHTML = html;
 }
 
+// --- Plan builder (days + exercise names only; sets/weight logged when training) ---
+let builderDays = [
+  { title: "", exercises: [{ name: "" }] },
+  { title: "", exercises: [{ name: "" }] },
+  { title: "", exercises: [{ name: "" }] },
+];
+
+function resizeBuilderDays(count) {
+  const clamped = Math.min(7, Math.max(1, count));
+  while (builderDays.length < clamped) {
+    builderDays.push({ title: "", exercises: [{ name: "" }] });
+  }
+  builderDays = builderDays.slice(0, clamped);
+  return clamped;
+}
+
+function planToBuilderDays(plan) {
+  if (!plan?.days?.length) return resizeBuilderDays(3);
+  builderDays = plan.days.map((day) => ({
+    title: day.title || String(day.label || "").replace(/^Day \d+\s*[–-]\s*/i, ""),
+    exercises:
+      day.sections?.flatMap((s) => s.exercises || []).length > 0
+        ? day.sections.flatMap((s) =>
+            (s.exercises || []).map((ex) => ({ name: ex.name || "" }))
+          )
+        : [{ name: "" }],
+  }));
+  document.getElementById("builder-day-count").value = builderDays.length;
+}
+
+function buildPlanPayloadFromBuilder() {
+  const planName = document.getElementById("builder-plan-name").value.trim() || "My Workout Plan";
+  const weeks = Math.min(12, Math.max(1, parseInt(document.getElementById("builder-weeks").value, 10) || 8));
+
+  const days = builderDays.map((draft, index) => {
+    const title = draft.title.trim() || `Training ${index + 1}`;
+    const label = `Day ${index + 1} – ${title}`;
+    const exercises = draft.exercises
+      .filter((ex) => ex.name.trim())
+      .map((ex) => ({
+        name: ex.name.trim(),
+        sectionName: "Main",
+        loggable: true,
+      }));
+    return {
+      dayNumber: index + 1,
+      title,
+      label,
+      sections: [{ name: "Main", exercises }],
+    };
+  });
+
+  const trainingDays = days.map((d) => d.label);
+  const daySchedule = {};
+  for (const day of days) {
+    daySchedule[day.label] = day.sections.flatMap((s) => s.exercises.map((e) => e.name));
+  }
+
+  return { planName, weeks, trainingDays, daySchedule, days };
+}
+
+function renderPlanBuilder() {
+  const container = document.getElementById("plan-builder-days");
+  if (!container) return;
+  container.innerHTML = "";
+
+  builderDays.forEach((day, dayIndex) => {
+    const card = document.createElement("div");
+    card.className = "plan-builder-day";
+    card.innerHTML = `<h4>Day ${dayIndex + 1}</h4>`;
+
+    const titleField = document.createElement("label");
+    titleField.className = "field";
+    titleField.innerHTML = "<span>Day name</span>";
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.value = day.title;
+    titleInput.placeholder = "e.g. Push, Legs, Upper Body";
+    titleInput.addEventListener("input", (e) => {
+      builderDays[dayIndex].title = e.target.value;
+    });
+    titleField.appendChild(titleInput);
+    card.appendChild(titleField);
+
+    const exLabel = document.createElement("p");
+    exLabel.className = "hint";
+    exLabel.textContent = "Exercises (weight & sets logged when you train)";
+    card.appendChild(exLabel);
+
+    day.exercises.forEach((exercise, exerciseIndex) => {
+      const row = document.createElement("div");
+      row.className = "plan-builder-exercise-row";
+
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.placeholder = "Exercise name";
+      nameInput.value = exercise.name;
+      nameInput.addEventListener("input", (e) => {
+        builderDays[dayIndex].exercises[exerciseIndex].name = e.target.value;
+      });
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "btn icon-btn";
+      removeBtn.textContent = "×";
+      removeBtn.title = "Remove exercise";
+      removeBtn.addEventListener("click", () => {
+        builderDays[dayIndex].exercises.splice(exerciseIndex, 1);
+        if (!builderDays[dayIndex].exercises.length) {
+          builderDays[dayIndex].exercises.push({ name: "" });
+        }
+        renderPlanBuilder();
+      });
+
+      row.append(nameInput, removeBtn);
+      card.appendChild(row);
+    });
+
+    const addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.className = "btn secondary small";
+    addBtn.textContent = "+ Add exercise";
+    addBtn.addEventListener("click", () => {
+      builderDays[dayIndex].exercises.push({ name: "" });
+      renderPlanBuilder();
+    });
+    card.appendChild(addBtn);
+
+    container.appendChild(card);
+  });
+}
+
+function initPlanBuilder() {
+  const dayCountInput = document.getElementById("builder-day-count");
+  if (!dayCountInput) return;
+
+  dayCountInput.addEventListener("change", () => {
+    const count = resizeBuilderDays(parseInt(dayCountInput.value, 10) || 1);
+    dayCountInput.value = count;
+    renderPlanBuilder();
+  });
+
+  document.getElementById("btn-save-built-plan")?.addEventListener("click", async () => {
+    const payload = buildPlanPayloadFromBuilder();
+    const hasExercise = payload.days.some((d) =>
+      d.sections.some((s) => s.exercises.length > 0)
+    );
+    if (!hasExercise) {
+      toast("Add at least one exercise", true);
+      return;
+    }
+    try {
+      const plan = await api("/api/plan/import", { method: "POST", body: payload });
+      applyPlanToUI(plan);
+      toast(`Saved ${plan.days?.length || payload.days.length} training days`);
+    } catch (e) {
+      toast(e.message || "Could not save plan", true);
+    }
+  });
+
+  renderPlanBuilder();
+}
+
 document.getElementById("w-day").addEventListener("change", () => {
   fillExerciseSelect();
   saveLogForm();
@@ -335,6 +498,12 @@ async function loadPlanAndCatalog() {
 
   const savedDay = restoreLogForm();
   applyPlanToUI(workoutPlan, savedDay);
+  if (workoutPlan) {
+    document.getElementById("builder-plan-name").value = workoutPlan.planName || "My Workout Plan";
+    document.getElementById("builder-weeks").value = workoutPlan.weeks || 8;
+    planToBuilderDays(workoutPlan);
+    renderPlanBuilder();
+  }
 }
 
 async function importPlanText(text) {
@@ -594,65 +763,180 @@ async function loadMeasurements() {
   }
 }
 
+function weeklyFieldToChart(weekly, field) {
+  return [...weekly]
+    .sort((a, b) => a.weekNumber - b.weekNumber)
+    .filter((w) => w[field] != null && !Number.isNaN(Number(w[field])))
+    .map((w) => ({ label: `W${w.weekNumber}`, value: Number(w[field]) }));
+}
+
+function measurementWeightChart(measurements) {
+  return [...measurements]
+    .filter((m) => m.bodyWeight != null && !Number.isNaN(Number(m.bodyWeight)))
+    .sort((a, b) => String(a.measurementDate).localeCompare(String(b.measurementDate)))
+    .map((m) => ({
+      label: String(m.measurementDate).slice(5),
+      value: Number(m.bodyWeight),
+    }));
+}
+
 async function loadDashboard() {
   const overview = document.getElementById("dashboard-overview");
+  const charts = document.getElementById("dashboard-charts");
   const prs = document.getElementById("dashboard-prs");
   try {
-    const dash = await api("/api/dashboard");
+    const [dash, weekly, measurements] = await Promise.all([
+      api("/api/dashboard"),
+      api("/api/summary/weekly"),
+      api("/api/measurements").catch(() => []),
+    ]);
     overview.innerHTML = `
       <div class="stat"><div class="value">${dash.completionPercentage?.toFixed(0) ?? 0}%</div><div class="label">Completion</div></div>
       <div class="stat"><div class="value">${dash.totalWorkoutSessions ?? 0}</div><div class="label">Sessions</div></div>
       <div class="stat"><div class="value">${dash.latestWeight ?? "—"}</div><div class="label">Weight kg</div></div>
       <div class="stat"><div class="value">${dash.latestWaist ?? "—"}</div><div class="label">Waist</div></div>
       <div class="stat"><div class="value">${dash.totalPRs ?? 0}</div><div class="label">PRs</div></div>`;
+
+    if (charts) {
+      const weightPoints = measurementWeightChart(measurements);
+      const weightChart =
+        weightPoints.length > 0
+          ? weightPoints
+          : weeklyFieldToChart(weekly, "bodyWeight");
+      charts.innerHTML = `
+        <h3 class="section-heading">Trends</h3>
+        <div class="chart-card">${renderProgressChartHtml(weightChart, "Body weight", "kg")}</div>
+        <div class="chart-card">${renderProgressChartHtml(weeklyFieldToChart(weekly, "totalVolume"), "Weekly training volume", "kg")}</div>
+        <div class="chart-card">${renderProgressChartHtml(weeklyFieldToChart(weekly, "waist"), "Waist", "cm")}</div>`;
+    }
+
     const messages = dash.latestPRMessages || [];
     prs.innerHTML = messages.length
-      ? messages.map((m) => `<div class="log-item">${escapeHtml(m)}</div>`).join("")
+      ? `<h3 class="section-heading">Recent PRs</h3>${messages.map((m) => `<div class="log-item">${escapeHtml(m)}</div>`).join("")}`
       : '<p class="hint">No PRs yet — log heavy sets on Workouts.</p>';
   } catch {
     overview.innerHTML = '<p class="hint">Start backend on port 8080.</p>';
+    if (charts) charts.innerHTML = "";
     prs.innerHTML = "";
   }
 }
 
-async function listExerciseEntryOptions() {
-  const sessions = await api("/api/workouts");
-  const sorted = [...sessions].sort((a, b) => b.workoutDate.localeCompare(a.workoutDate));
-  const byName = new Map();
-  for (const s of sorted) {
-    const entries = await api(`/api/exercises/session/${s.id}`);
-    for (const e of entries) {
-      const prev = byName.get(e.exerciseName);
-      if (!prev || e.id > prev.id) {
-        byName.set(e.exerciseName, { id: e.id, name: e.exerciseName });
-      }
-    }
+function bestWeightBySession(points) {
+  const byDate = new Map();
+  for (const p of points) {
+    const date = p.workoutDate || (p.createdAt ? String(p.createdAt).slice(0, 10) : "?");
+    const weight = Number(p.weight) || 0;
+    byDate.set(date, Math.max(byDate.get(date) ?? 0, weight));
   }
-  return Array.from(byName.values());
+  return Array.from(byDate.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([label, value]) => ({ label: label.slice(5), value }));
+}
+
+function renderProgressChartHtml(points, title, unit = "kg") {
+  if (!points.length) {
+    return `<p class="chart-empty">${escapeHtml(title)} — no data yet.</p>`;
+  }
+  const values = points.map((p) => p.value);
+  const max = Math.max(...values, 1);
+  const min = Math.min(...values, 0);
+  const range = max - min || 1;
+  const width = 600;
+  const height = 160;
+  const pad = 16;
+
+  const coords = points.map((point, index) => {
+    const x =
+      points.length === 1
+        ? width / 2
+        : pad + (index / (points.length - 1)) * (width - pad * 2);
+    const y = pad + (1 - (point.value - min) / range) * (height - pad * 2);
+    return { x, y, label: point.label, value: point.value };
+  });
+
+  const line = coords.map((c) => `${c.x},${c.y}`).join(" ");
+  const dots = coords
+    .map(
+      (c) =>
+        `<circle cx="${c.x}" cy="${c.y}" r="5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"><title>${escapeHtml(c.label)}: ${c.value.toFixed(1)} ${unit}</title></circle>`
+    )
+    .join("");
+  const labels = coords
+    .map(
+      (c) =>
+        `<text x="${c.x}" y="${height - 2}" text-anchor="middle" fill="var(--muted)" font-size="10">${escapeHtml(c.label)}</text>`
+    )
+    .join("");
+
+  return `
+    <h4 style="margin:0 0 0.5rem;color:var(--text)">${escapeHtml(title)}</h4>
+    <svg viewBox="0 0 ${width} ${height + 18}" preserveAspectRatio="none">
+      <line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border)" stroke-width="1"/>
+      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height - pad}" stroke="var(--border)" stroke-width="1"/>
+      ${points.length > 1 ? `<polyline fill="none" stroke="var(--accent)" stroke-width="2.5" points="${line}" opacity="0.9"/>` : ""}
+      ${dots}
+      ${labels}
+    </svg>
+    <p class="chart-meta">Peak ${max.toFixed(1)} ${unit} · Latest ${points[points.length - 1].value.toFixed(1)} ${unit}</p>`;
+}
+
+function renderProgressChart(container, points, title) {
+  if (!container) return;
+  container.innerHTML = renderProgressChartHtml(points, title, "kg");
+}
+
+function populateAnalyticsDaySelect() {
+  const daySel = document.getElementById("analytics-day");
+  if (!daySel) return;
+  const days = workoutPlan?.days || [];
+  daySel.innerHTML = days
+    .map((d) => `<option value="${escapeHtml(d.label)}">${escapeHtml(d.title || d.label)}</option>`)
+    .join("");
+  if (!days.length) {
+    daySel.innerHTML = '<option value="">No plan — build one on Workouts</option>';
+  }
+}
+
+function populateAnalyticsExerciseSelect(dayLabel) {
+  const exSel = document.getElementById("analytics-exercise");
+  if (!exSel) return;
+  const exercises = exercisesForDay(dayLabel);
+  exSel.innerHTML = exercises.length
+    ? exercises.map((e) => `<option value="${escapeHtml(e.name)}">${escapeHtml(e.name)}</option>`).join("")
+    : '<option value="">No exercises on this day</option>';
 }
 
 async function loadAnalytics() {
-  const sel = document.getElementById("analytics-exercise");
+  const daySel = document.getElementById("analytics-day");
+  const exSel = document.getElementById("analytics-exercise");
+  const chartEl = document.getElementById("analytics-chart");
   const volEl = document.getElementById("analytics-volume");
   const setsEl = document.getElementById("analytics-sets");
+
   try {
-    const options = await listExerciseEntryOptions();
-    const current = sel.value;
-    sel.innerHTML = options
-      .map((o) => `<option value="${o.id}">${escapeHtml(o.name)}</option>`)
-      .join("");
-    if (current && options.some((o) => String(o.id) === current)) sel.value = current;
-    if (!sel.value && options[0]) sel.value = String(options[0].id);
-    if (!sel.value) {
-      volEl.innerHTML = '<p class="hint">Log workouts first.</p>';
+    if (!workoutPlan?.days?.length) {
+      workoutPlan = await api("/api/plan").catch(() => workoutPlan);
+    }
+    populateAnalyticsDaySelect();
+    const dayLabel = daySel?.value || workoutPlan?.days?.[0]?.label;
+    if (daySel && dayLabel) daySel.value = dayLabel;
+    populateAnalyticsExerciseSelect(dayLabel);
+    const exerciseName = exSel?.value;
+    if (!dayLabel || !exerciseName) {
+      chartEl.innerHTML = '<p class="chart-empty">Set up your plan and log sets first.</p>';
+      volEl.innerHTML = "";
       setsEl.innerHTML = "";
       return;
     }
-    const entryId = sel.value;
-    const [volume, progress] = await Promise.all([
-      api(`/api/analytics/volume/${entryId}`),
-      api(`/api/analytics/exercise/${entryId}`),
+
+    const q = new URLSearchParams({ name: exerciseName, trainingDay: dayLabel });
+    const [progress, volume] = await Promise.all([
+      api(`/api/analytics/by-name?${q}`),
+      api(`/api/analytics/volume-by-name?${q}`),
     ]);
+
+    renderProgressChart(chartEl, bestWeightBySession(progress), "Best weight per session");
+
     const maxVol = Math.max(...volume.map((v) => Number(v.totalVolume) || 0), 1);
     volEl.innerHTML = volume.length
       ? volume
@@ -661,21 +945,27 @@ async function loadAnalytics() {
             return `<div class="summary-card"><h3>Week ${v.weekNumber}</h3><p>Volume: ${v.totalVolume}</p><div style="background:#0f1520;height:8px;border-radius:4px;margin-top:8px"><div style="width:${pct}%;height:100%;background:var(--accent);border-radius:4px"></div></div></div>`;
           })
           .join("")
-      : '<p class="hint">No volume data for this exercise.</p>';
+      : '<p class="hint">No volume data yet.</p>';
+
     setsEl.innerHTML = progress.length
       ? progress
           .map(
             (p) =>
-              `<div class="log-item">${escapeHtml(p.exerciseName)} · ${p.weight}kg × ${p.reps} · vol ${p.volume} · e1RM ${p.estimatedOneRepMax?.toFixed?.(1) ?? p.estimatedOneRepMax}</div>`
+              `<div class="log-item">${escapeHtml(p.workoutDate || "—")} · ${p.weight}kg × ${p.reps} · vol ${p.volume} · e1RM ${p.estimatedOneRepMax?.toFixed?.(1) ?? p.estimatedOneRepMax}${p.setNumber ? ` · set ${p.setNumber}` : ""}</div>`
           )
           .join("")
-      : '<p class="hint">No sets logged.</p>';
+      : '<p class="hint">No sets logged for this exercise on this day.</p>';
   } catch {
-    volEl.innerHTML = '<p class="hint">API unavailable.</p>';
+    chartEl.innerHTML = '<p class="chart-empty">API unavailable.</p>';
+    volEl.innerHTML = "";
     setsEl.innerHTML = "";
   }
 }
 
+document.getElementById("analytics-day")?.addEventListener("change", () => {
+  populateAnalyticsExerciseSelect(document.getElementById("analytics-day").value);
+  loadAnalytics();
+});
 document.getElementById("analytics-exercise")?.addEventListener("change", loadAnalytics);
 
 async function loadSummary() {
@@ -767,6 +1057,7 @@ document.getElementById("btn-sync-api").addEventListener("click", async () => {
   }
 });
 
+initPlanBuilder();
 loadPlanAndCatalog();
 loadDashboard();
 loadWorkoutLog();

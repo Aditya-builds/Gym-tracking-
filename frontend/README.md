@@ -32,72 +32,39 @@ npm run web
 
 ```
 src/
-├── api/            # API client configuration (axios)
-├── screens/        # Screen components (Dashboard, Workout, Analytics, Settings)
-├── navigation/     # Bottom tab and stack navigation setup
-├── components/     # Reusable UI components
-├── types/          # TypeScript type definitions
-├── theme/          # Theme configuration and styles
-├── utils/          # Utility functions
-├── hooks/          # Custom React hooks (if needed)  
-├── services/       # Business logic services
-└── context/        # React Context for state management
+├── api/            # Axios API modules (apiClient, workoutApi, planApi, …)
+├── screens/        # Dashboard, Today, Log, Analytics, Measurements, Summary, Backup
+├── navigation/     # AppNavigator + AppShell tab layout
+├── components/     # Reusable UI (AppShell, SetLoggerModal)
+├── theme/          # colors.ts, todayColors.ts
+├── utils/          # planUtils and shared helpers
+└── services/       # todayWorkoutService (Today tab ↔ Quarkus API)
 ```
 
 ### API Configuration
 
-The app connects to the backend API defined in `app.json`:
+The app connects to the Quarkus backend via `src/api/apiClient.ts`:
 
-```json
-{
-  "extra": {
-    "apiUrl": "http://localhost:8080/api"
-  }
-}
-```
-
-Update this URL for your environment (development, staging, production).
-
-### Dependencies
-
-- **expo**: Core framework and managed services
-- **react-native**: UI library
-- **@react-navigation/***: Navigation system
-- **react-native-paper**: Material Design UI components
-- **axios**: HTTP client
-- **react-native-vector-icons**: Icon library
+- Android emulator: `http://10.0.2.2:8080`
+- iOS / web / default: `http://localhost:8080`
+- Override with `extra.apiBaseUrl` in `app.json`
 
 ### Backend Integration
 
-The frontend API client is configured in `src/api/index.ts` with:
-- Base URL from `expo-constants`
-- Request/response interceptors for auth and error handling
-- Timeout configuration
+All tabs use the Quarkus REST API on port 8080:
+
+- **Today** — loads plan from `/api/plan`, logs sets via `/api/workouts`, `/api/exercises`, `/api/sets`
+- **Log** — full session-based workout logging
+- **Dashboard / Summary / Analytics / Measurements / Backup** — respective `/api/*` endpoints
+
+Start the full stack from the repo root: `.\start-app.ps1`
 
 ### Screens
 
-- **Dashboard**: Overview of total workouts, weekly activity, volume, and measurements
-- **Workout**: List of workouts with ability to add new entries
-- **Analytics**: Charts and metrics for strength trends, volume progress, consistency
-- **Settings**: Account, notifications, privacy, and app information
-
-### Development Tips
-
-1. Hot reload: Changes to files are automatically reflected
-2. Use `expo-constants` to manage environment variables
-3. The app uses React Navigation for routing
-4. Material Design 3 theming via react-native-paper
-5. TypeScript for type safety
-
-### Troubleshooting
-
-If dependencies fail to install, try:
-```bash
-npm install --legacy-peer-deps
-```
-
-For clear cache:
-```bash
-expo cache clean
-expo start --clear
-```
+- **Dashboard**: Overview of workouts, volume, and measurements
+- **Today**: Day-by-day plan view with set logger synced to the API
+- **Log**: Session-based workout logging
+- **Analytics**: Exercise progress charts
+- **Measurements**: Weekly body check-ins
+- **Summary**: Weekly training summary
+- **Backup**: Export/import plan and backup data

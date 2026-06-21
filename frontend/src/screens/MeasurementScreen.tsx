@@ -8,7 +8,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { createMeasurement, getMeasurements } from "../api/measurementApi";
+import { createMeasurement, getLatestMeasurement, getMeasurements } from "../api/measurementApi";
 import { colors } from "../theme/colors";
 
 function todayIso() {
@@ -32,8 +32,22 @@ export default function MeasurementScreen() {
 
   const load = async () => {
     try {
-      const data = await getMeasurements();
+      const [data, latest] = await Promise.all([
+        getMeasurements(),
+        getLatestMeasurement().catch(() => null),
+      ]);
       setList(data);
+      if (latest) {
+        setWeek(String(latest.weekNumber ?? 1));
+        if (latest.bodyWeight != null) setWeight(String(latest.bodyWeight));
+        if (latest.waistNavel != null) setWaistNavel(String(latest.waistNavel));
+        if (latest.waistSmallest != null) setWaistSmall(String(latest.waistSmallest));
+        if (latest.hips != null) setHips(String(latest.hips));
+        if (latest.thigh != null) setThigh(String(latest.thigh));
+        if (latest.chest != null) setChest(String(latest.chest));
+        if (latest.shoulders != null) setShoulders(String(latest.shoulders));
+        if (latest.arm != null) setArm(String(latest.arm));
+      }
     } catch {
       setList([]);
     }

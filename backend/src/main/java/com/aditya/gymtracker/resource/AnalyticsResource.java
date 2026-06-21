@@ -41,5 +41,23 @@ public class AnalyticsResource {
                 exerciseEntryId
         );
     }
+
+    @GET
+    @Path("/by-name")
+    public List<ExerciseProgressResponse> getProgressByName(
+            @QueryParam("name") String name,
+            @QueryParam("trainingDay") String trainingDay
+    ) {
+        return analyticsService.getProgressByExerciseName(name, trainingDay);
+    }
+
+    @GET
+    @Path("/volume-by-name")
+    public List<WeeklyVolumeResponse> getWeeklyVolumeByName(
+            @QueryParam("name") String name,
+            @QueryParam("trainingDay") String trainingDay
+    ) {
+        return analyticsService.getWeeklyVolumeByExerciseName(name, trainingDay);
+    }
 }
 
